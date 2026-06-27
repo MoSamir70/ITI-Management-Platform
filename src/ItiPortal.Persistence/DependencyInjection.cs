@@ -37,6 +37,7 @@ public static class DependencyInjection
 
         services.AddScoped<IRefreshTokenStore, RefreshTokenStore>();
         services.AddScoped<IClaimsLookup, ClaimsLookup>();
+        services.AddScoped<ItiPortal.Application.Users.IUserQueryRepository, ItiPortal.Persistence.Users.UserQueryRepository>();
 
         return services;
     }
