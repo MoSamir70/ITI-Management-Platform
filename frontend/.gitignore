@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+.npm
+
+# Build output
+dist/
+.angular/cache/
+
+# IDE
+.idea/
+.vscode/
+
+# Environment overrides (keep environment.ts, ignore local overrides)
+src/environments/environment.local.ts
