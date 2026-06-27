@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ITI Portal - Students Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Montserrat:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e3e2e2",
+                        "tertiary-fixed": "#ffdad7",
+                        "inverse-on-surface": "#f2f0f0",
+                        "deep-navy": "#203947",
+                        "on-secondary-fixed-variant": "#314a58",
+                        "on-secondary-fixed": "#021e2b",
+                        "on-surface-variant": "#58413f",
+                        "secondary-container": "#c9e3f5",
+                        "on-primary-container": "#ffd4d0",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#8b171d",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e3e2e2",
+                        "secondary-fixed-dim": "#b0cadc",
+                        "secondary": "#496271",
+                        "secondary-fixed": "#cce6f8",
+                        "on-background": "#1b1c1c",
+                        "on-primary-fixed-variant": "#8a1a1b",
+                        "on-secondary-container": "#4d6675",
+                        "on-tertiary-fixed": "#410005",
+                        "surface-container-high": "#e9e8e7",
+                        "surface-bright": "#fbf9f9",
+                        "surface-container-low": "#f5f3f3",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#fbf9f9",
+                        "tertiary": "#901b20",
+                        "on-primary-fixed": "#410003",
+                        "primary-fixed-dim": "#ffb3ad",
+                        "surface-dim": "#dbdad9",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#303031",
+                        "surface-tint": "#ab3330",
+                        "dark-crimson": "#901B20",
+                        "surface-container-lowest": "#ffffff",
+                        "pure-white": "#FFFFFF",
+                        "surface-container": "#efeded",
+                        "surface-gray": "#EDEDED",
+                        "tertiary-fixed-dim": "#ffb3ae",
+                        "tertiary-container": "#b13435",
+                        "outline-variant": "#dfbfbc",
+                        "iti-red": "#B03633",
+                        "outline": "#8c716e",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#ffd3d0",
+                        "background": "#fbf9f9",
+                        "primary-container": "#b03633",
+                        "primary-fixed": "#ffdad6",
+                        "primary": "#8f1d1e",
+                        "inverse-primary": "#ffb3ad",
+                        "on-surface": "#1b1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sidebar-width": "280px",
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "32px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "title-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #fbf9f9; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .sidebar-active {
+            border-left-width: 4px;
+            border-color: #B03633;
+            background-color: rgba(176, 54, 51, 0.1);
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+    </style>
+</head>
+<body class="text-on-background">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-deep-navy shadow-2xl flex flex-col py-base z-50">
+<div class="px-6 py-8 flex flex-col gap-1">
+<h1 class="font-headline-md text-headline-md font-bold text-pure-white">ITI Portal</h1>
+<p class="font-label-md text-label-md text-surface-variant/60">Branch Management</p>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center px-4 py-3 text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center px-4 py-3 text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-3">school</span>
+<span class="font-label-md text-label-md">Programs</span>
+</a>
+<a class="flex items-center px-4 py-3 text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-3">groups</span>
+<span class="font-label-md text-label-md">Batches</span>
+</a>
+<a class="flex items-center px-4 py-3 text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-3">badge</span>
+<span class="font-label-md text-label-md">Staff</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center px-4 py-3 border-l-4 border-iti-red bg-primary-container/20 text-pure-white font-bold transition-colors duration-200 group" href="#">
+<span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-md text-label-md">Students</span>
+</a>
+<a class="flex items-center px-4 py-3 text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-3">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</nav>
+<div class="mt-auto px-3 border-t border-white/10 pt-4 space-y-1">
+<a class="flex items-center px-4 py-3 text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-3">settings</span>
+<span class="font-label-md text-label-md">System Settings</span>
+</a>
+<a class="flex items-center px-4 py-3 text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-3">help</span>
+<span class="font-label-md text-label-md">Help Center</span>
+</a>
+<a class="flex items-center px-4 py-3 text-iti-red hover:bg-iti-red/10 transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-3">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Shell -->
+<div class="ml-[280px] min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-280px)] h-16 glass-nav border-b border-surface-gray/30 flex justify-between items-center px-gutter z-40">
+<div class="flex items-center gap-6">
+<h2 class="font-headline-md text-headline-md font-extrabold text-primary">ITI Branch Portal</h2>
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary/60">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-surface-gray/50 rounded-lg text-body-md focus:outline-none focus:ring-2 focus:ring-iti-red/20 focus:border-iti-red w-80 transition-all" placeholder="Search students, tracks..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<nav class="hidden xl:flex items-center gap-6 mr-6">
+<a class="font-body-md text-body-md text-secondary hover:text-primary transition-all" href="#">Schedules</a>
+<a class="font-body-md text-body-md text-secondary hover:text-primary transition-all" href="#">Attendance</a>
+<a class="font-body-md text-body-md text-secondary hover:text-primary transition-all" href="#">Grades</a>
+</nav>
+<button class="flex items-center gap-2 bg-iti-red text-white px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-dark-crimson transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                    Create New
+                </button>
+<div class="flex items-center gap-2 ml-4">
+<button class="p-2 text-secondary hover:bg-surface-container-low rounded-lg transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-secondary hover:bg-surface-container-low rounded-lg transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden border border-surface-gray/30 ml-2">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged academic administrator with a warm, welcoming expression. He is wearing a charcoal grey suit and a light blue shirt, standing against a softly blurred background of a modern library with wooden shelves and warm, ambient lighting. The lighting is soft and flattering, emphasizing a corporate yet accessible professional vibe suitable for a prestigious educational institution portal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2z3kP4yq_g_YhOG_mjC_Gbg4wc-TAipb6VSc5O8mhEt_3ObpZ4QWEB8R7hgN9-LR4o1CCnZHP9VO3tqYOiib6unjoLHhuG-7SNLwbhaOGS0I9jnU2rMAN3IDy25edKL4niVH2jcJLljquA1NLuczmBSNGgf8i_BivQgWQBFABiSLfXmau-ONzDN2pcj0v8rPOTUrfHR9F3kjo1pvQbzPPja9Z3DzcOWTp64rhBN17nU5JpM8mZslxEnsQpMpd8OWEcStKo-GNCpMe"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="mt-16 p-margin-desktop flex-1">
+<!-- Page Header Section -->
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<nav class="flex items-center gap-2 text-label-md font-label-md text-secondary/60 mb-2">
+<span>Portal</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Students Management</span>
+</nav>
+<h3 class="font-headline-lg text-headline-lg text-deep-navy">Student Directory</h3>
+<p class="font-body-md text-body-md text-secondary/70">Manage enrollment, tracks, and academic performance for current intakes.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-pure-white border border-surface-gray/50 rounded-lg text-label-md font-label-md text-secondary hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+                        Filters
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-pure-white border border-surface-gray/50 rounded-lg text-label-md font-label-md text-secondary hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                        Export CSV
+                    </button>
+<button class="flex items-center gap-2 bg-iti-red text-white px-6 py-2.5 rounded-lg font-label-md text-label-md font-bold hover:bg-dark-crimson shadow-md transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+                        Register New Student
+                    </button>
+</div>
+</div>
+<!-- Stats Overview - Bento Style -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+<div class="bg-pure-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-surface-gray/20">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 bg-blue-50 text-blue-600 rounded-lg">
+<span class="material-symbols-outlined">group</span>
+</div>
+<span class="text-label-sm font-label-sm text-green-600 bg-green-50 px-2 py-0.5 rounded-full">+12%</span>
+</div>
+<div class="font-display-lg text-[32px] font-bold text-deep-navy">2,840</div>
+<div class="font-label-md text-label-md text-secondary/70">Total Students</div>
+</div>
+<div class="bg-pure-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-surface-gray/20">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 bg-iti-red/10 text-iti-red rounded-lg">
+<span class="material-symbols-outlined">event_available</span>
+</div>
+<span class="text-label-sm font-label-sm text-secondary/60">Average</span>
+</div>
+<div class="font-display-lg text-[32px] font-bold text-deep-navy">94.2%</div>
+<div class="font-label-md text-label-md text-secondary/70">Attendance Rate</div>
+</div>
+<div class="bg-pure-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-surface-gray/20">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 bg-amber-50 text-amber-600 rounded-lg">
+<span class="material-symbols-outlined">account_tree</span>
+</div>
+<span class="text-label-sm font-label-sm text-secondary/60">Active</span>
+</div>
+<div class="font-display-lg text-[32px] font-bold text-deep-navy">18</div>
+<div class="font-label-md text-label-md text-secondary/70">Specialized Tracks</div>
+</div>
+<div class="bg-pure-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-surface-gray/20">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 bg-purple-50 text-purple-600 rounded-lg">
+<span class="material-symbols-outlined">new_releases</span>
+</div>
+<span class="text-label-sm font-label-sm text-purple-600 font-bold">Intake 44</span>
+</div>
+<div class="font-display-lg text-[32px] font-bold text-deep-navy">452</div>
+<div class="font-label-md text-label-md text-secondary/70">New Enrollments</div>
+</div>
+</div>
+<!-- Table Filters & Search -->
+<div class="bg-pure-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-surface-gray/20 overflow-hidden">
+<div class="p-6 border-b border-surface-gray/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary/60">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low border border-surface-gray/50 rounded-lg text-body-md focus:ring-2 focus:ring-iti-red/20 focus:border-iti-red transition-all" placeholder="Search by name, email or ID..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<select class="bg-surface-container-low border border-surface-gray/50 rounded-lg py-2.5 pl-3 pr-8 font-label-md text-label-md text-secondary focus:ring-2 focus:ring-iti-red/20 transition-all">
+<option>Intake 44</option>
+<option>Intake 43</option>
+<option>Intake 42</option>
+</select>
+<select class="bg-surface-container-low border border-surface-gray/50 rounded-lg py-2.5 pl-3 pr-8 font-label-md text-label-md text-secondary focus:ring-2 focus:ring-iti-red/20 transition-all">
+<option>All Tracks</option>
+<option>Full Stack Web</option>
+<option>Cloud Solutions</option>
+<option>UI/UX Design</option>
+<option>Cyber Security</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-label-md text-secondary/60">Showing 1-10 of 2,840</span>
+<div class="flex items-center border border-surface-gray/50 rounded-lg overflow-hidden">
+<button class="p-2 hover:bg-surface-container-low transition-all"><span class="material-symbols-outlined">chevron_left</span></button>
+<div class="px-3 py-2 text-label-md font-bold border-x border-surface-gray/50">1</div>
+<button class="p-2 hover:bg-surface-container-low transition-all"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+</div>
+<!-- Students Table -->
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-6 py-4 font-label-sm text-label-sm text-secondary/70 uppercase tracking-wider">
+<div class="flex items-center gap-2">
+<input class="rounded text-iti-red focus:ring-iti-red border-surface-gray/50" type="checkbox"/>
+                                        Student Profile
+                                    </div>
+</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-secondary/70 uppercase tracking-wider">Track / Specialty</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-secondary/70 uppercase tracking-wider">Intake</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-secondary/70 uppercase tracking-wider">Attendance</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-secondary/70 uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-gray/30">
+<!-- Student Row 1 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<input class="rounded text-iti-red focus:ring-iti-red border-surface-gray/50" type="checkbox"/>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest border border-surface-gray/30">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a young woman with a bright, confident smile, appearing to be a technology student. She has shoulder-length dark hair and is wearing a neat white blouse. The background is a clean, solid light grey, suggesting a professional academic registration photo. High-quality lighting highlights her features, creating an air of competence and readiness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0d1EGTSAK-kKf_Wxd2Kq9Pel6KSpr0VOECJN4XW1yiLdhgVaBXvn16AdvJm5_tLhgXZdNYs5ItzU3FwXfrHuBmwCh5CVmRkvEzFa812IBRVcJTKyOS3hdptCmSicChWEp_AltAwP4v6UQFmGH2_8sOF7bPAheDWLCIHRc3oQ634DUHeZOa3z1JDPSONB48rwN3IlXn4UqaJSKNY3F8d1hQTMYgur24SggMt2ClMZYv6mfueqq6eRNIBQWpMO13nDpjxRP_Eyb8-v4"/>
+</div>
+<div>
+<div class="font-label-md text-label-md font-bold text-deep-navy">Amira Mahmoud</div>
+<div class="text-label-sm text-secondary/60">amira.m@iti.gov.eg</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-iti-red/5 text-iti-red rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-iti-red"></span>
+<span class="font-label-md text-label-md font-semibold">Full Stack .NET</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md text-deep-navy font-medium">Intake 44</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-surface-gray rounded-full max-w-[100px]">
+<div class="h-full bg-green-500 rounded-full" style="width: 98%"></div>
+</div>
+<span class="font-label-md text-label-md text-green-600 font-bold">98%</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-surface-container-low rounded-md text-secondary" title="View Grades"><span class="material-symbols-outlined text-[20px]">grading</span></button>
+<button class="p-1.5 hover:bg-surface-container-low rounded-md text-secondary" title="Edit Profile"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 hover:bg-surface-container-low rounded-md text-secondary" title="More Actions"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Student Row 2 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<input class="rounded text-iti-red focus:ring-iti-red border-surface-gray/50" type="checkbox"/>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest border border-surface-gray/30">
+<img class="w-full h-full object-cover" data-alt="A close-up professional portrait of a young man with short dark hair and a friendly, focused expression, looking directly into the camera. He is wearing a dark navy blue polo shirt. The lighting is crisp and modern, set against a blurred background of a contemporary tech hub workspace with warm bokeh lights, representing a determined and professional engineering student." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv4Bp1LMogL0BjZNlSJUcSRusOLtpydx-QtkJn74Jo2noFouBffZVfRGctZdXxtKqm7FJ_Ep9jrf37VcaOIq2dVtKnFg9Xw2YUfydQRlnXxzrVmjjhn-Qty8KcJsls4EnvUvdq9oVUi4biZ9cih9WSoBTyOR8bMcJfs_iDBXjfthKOjvwhufTsCo9eok0CKhkOMthlu8OuO-xBjswiklneN-6PcwiZ9O0okNITajECN0RVCJl-Wo98rUlkAnfwbLpXTf9vsGVJLKkV"/>
+</div>
+<div>
+<div class="font-label-md text-label-md font-bold text-deep-navy">Omar Khaled</div>
+<div class="text-label-sm text-secondary/60">omar.k@iti.gov.eg</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-iti-red/5 text-iti-red rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-iti-red"></span>
+<span class="font-label-md text-label-md font-semibold">Cyber Security</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md text-deep-navy font-medium">Intake 44</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-surface-gray rounded-full max-w-[100px]">
+<div class="h-full bg-amber-500 rounded-full" style="width: 82%"></div>
+</div>
+<span class="font-label-md text-label-md text-amber-600 font-bold">82%</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-surface-container-low rounded-md text-secondary"><span class="material-symbols-outlined text-[20px]">grading</span></button>
+<button class="p-1.5 hover:bg-surface-container-low rounded-md text-secondary"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 hover:bg-surface-container-low rounded-md text-secondary"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Student Row 3 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<input class="rounded text-iti-red focus:ring-iti-red border-surface-gray/50" type="checkbox"/>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest border border-surface-gray/30">
+<img class="w-full h-full object-cover" data-alt="A high-quality portrait of a young woman with a calm, intelligent expression, wearing glasses and a professional grey blazer over a dark top. Her hair is tied back neatly. The setting is a bright, airy architectural space with high ceilings and glass windows, symbolizing clarity and academic ambition. The visual style is sharp and corporate, using a light-mode color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmiTYAfnk0F5SE8GJldbA1LxXXytLyj6xcXVzKRnqUGpSL-bsPVpae3wmioifkoU-GMbrqeR4UL4gTzFWxsX2zHbeNGaqyQn3H8FM85Q4DYgA31mBcA929H97KwwEcZsmW-Sz8lJm34awkWuSueDtWGD0xm5XzqcpsnHPcZCohZrs5F8tpGQdAF5YC20SO9lgNyPMMgxPLhDyDO_gpqqBb9sbVaq-iORzJCv3AN7ywynCC4bZVMjOC4BDJrE-kePL6VJdxmsQe9oe_"/>
+</div>
+<div>
+<div class="font-label-md text-label-md font-bold text-deep-navy">Yasmine Tarek</div>
+<div class="text-label-sm text-secondary/60">yasmine.t@iti.gov.eg</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-iti-red/5 text-iti-red rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-iti-red"></span>
+<span class="font-label-md text-label-md font-semibold">UI/UX Design</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md text-deep-navy font-medium">Intake 44</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-surface-gray rounded-full max-w-[100px]">
+<div class="h-full bg-green-500 rounded-full" style="width: 95%"></div>
+</div>
+<span class="font-label-md text-label-md text-green-600 font-bold">95%</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-surface-container-low rounded-md text-secondary"><span class="material-symbols-outlined text-[20px]">grading</span></button>
+<button class="p-1.5 hover:bg-surface-container-low rounded-md text-secondary"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 hover:bg-surface-container-low rounded-md text-secondary"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Student Row 4 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<input class="rounded text-iti-red focus:ring-iti-red border-surface-gray/50" type="checkbox"/>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest border border-surface-gray/30">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a young man with a polite smile, dressed in a simple light grey t-shirt. He has a clean-cut look and a friendly demeanor, standing in a brightly lit modern office environment with subtle greenery in the background. The lighting is natural and high-key, conveying a modern and approachable student persona for a digital academy platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD35UigMQxRRU-Ti63ll36j3ZwYY4TZX8aeeWdCpoGDs4MdmuuOjIojW0jdjfD3binNYyVyQhGtpgz9flwjAgg7P1CBH9m9JgV-JJEgFbJJBHsOBMTnO4aQNOw8XbBDKPxPKuOfzIXQWFPJPI1KlfWyBx9dczm1dzhYkY26De0DZkdwi3fF6X2FEaXywrAa4O3sTHjbyjZAW8R9qeKmMUW-PbmLirptWPdEzaAVfVhRxZGKgjcjVenDb0oZ3H1KFwabn6ZEImr2jOFK"/>
+</div>
+<div>
+<div class="font-label-md text-label-md font-bold text-deep-navy">Ahmed Hassan</div>
+<div class="text-label-sm text-secondary/60">ahmed.h@iti.gov.eg</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-iti-red/5 text-iti-red rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-iti-red"></span>
+<span class="font-label-md text-label-md font-semibold">Embedded Systems</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md text-deep-navy font-medium">Intake 43</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-surface-gray rounded-full max-w-[100px]">
+<div class="h-full bg-red-500 rounded-full" style="width: 68%"></div>
+</div>
+<span class="font-label-md text-label-md text-red-600 font-bold">68%</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-surface-container-low rounded-md text-secondary"><span class="material-symbols-outlined text-[20px]">grading</span></button>
+<button class="p-1.5 hover:bg-surface-container-low rounded-md text-secondary"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-1.5 hover:bg-surface-container-low rounded-md text-secondary"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer Pagination -->
+<div class="p-6 bg-surface-container-low/50 flex items-center justify-between border-t border-surface-gray/30">
+<div class="flex items-center gap-4">
+<select class="bg-pure-white border border-surface-gray/50 rounded-lg py-1.5 pl-2 pr-6 font-label-md text-label-md text-secondary">
+<option>10 per page</option>
+<option>25 per page</option>
+<option>50 per page</option>
+</select>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg border border-surface-gray/50 text-secondary hover:bg-surface-container-low transition-all"><span class="material-symbols-outlined text-[18px] align-middle">chevron_left</span> Previous</button>
+<button class="w-10 h-10 rounded-lg bg-iti-red text-white font-bold shadow-sm">1</button>
+<button class="w-10 h-10 rounded-lg hover:bg-surface-container-low text-secondary transition-all">2</button>
+<button class="w-10 h-10 rounded-lg hover:bg-surface-container-low text-secondary transition-all">3</button>
+<span class="text-secondary/60">...</span>
+<button class="w-10 h-10 rounded-lg hover:bg-surface-container-low text-secondary transition-all">284</button>
+<button class="px-3 py-1.5 rounded-lg border border-surface-gray/50 text-secondary hover:bg-surface-container-low transition-all">Next <span class="material-symbols-outlined text-[18px] align-middle">chevron_right</span></button>
+</div>
+</div>
+</div>
+<!-- Quick Insights / Asymmetric Cards Section -->
+<div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2 bg-deep-navy rounded-xl p-8 relative overflow-hidden shadow-xl flex flex-col justify-between">
+
+<div class="relative z-10">
+<h4 class="font-headline-md text-headline-md text-pure-white mb-2">Academic Performance Review</h4>
+<p class="text-surface-variant/70 text-body-md max-w-md mb-6">Analyze performance trends across all tracks for Intake 44. Currently, UI/UX has the highest engagement rate.</p>
+<div class="flex gap-4">
+<button class="px-6 py-2.5 bg-iti-red text-white rounded-lg font-bold hover:bg-dark-crimson transition-all">Generate Full Report</button>
+<button class="px-6 py-2.5 bg-white/10 text-white rounded-lg border border-white/20 hover:bg-white/20 transition-all">View Details</button>
+</div>
+</div>
+<div class="relative z-10 mt-12 grid grid-cols-3 gap-4">
+<div class="bg-white/5 backdrop-blur-md p-4 rounded-lg border border-white/10">
+<div class="text-surface-variant/60 text-label-sm uppercase">Highest GPA</div>
+<div class="text-pure-white font-bold text-headline-md">3.92</div>
+</div>
+<div class="bg-white/5 backdrop-blur-md p-4 rounded-lg border border-white/10">
+<div class="text-surface-variant/60 text-label-sm uppercase">Completion</div>
+<div class="text-pure-white font-bold text-headline-md">86%</div>
+</div>
+<div class="bg-white/5 backdrop-blur-md p-4 rounded-lg border border-white/10">
+<div class="text-surface-variant/60 text-label-sm uppercase">At Risk</div>
+<div class="text-iti-red font-bold text-headline-md">12</div>
+</div>
+</div>
+</div>
+<div class="bg-pure-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-surface-gray/20 p-6">
+<h4 class="font-title-lg text-title-lg text-deep-navy mb-6">Recent Activities</h4>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="mt-1 w-2 h-2 rounded-full bg-iti-red flex-shrink-0"></div>
+<div>
+<div class="text-body-md font-bold text-deep-navy">New Student Registered</div>
+<div class="text-label-md text-secondary/60">Karim Ali enrolled in Cloud Solutions</div>
+<div class="text-label-sm text-secondary/40 mt-1">2 mins ago</div>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="mt-1 w-2 h-2 rounded-full bg-iti-red flex-shrink-0"></div>
+<div>
+<div class="text-body-md font-bold text-deep-navy">Grade Batch Uploaded</div>
+<div class="text-label-md text-secondary/60">Midterm results for Intake 43 released</div>
+<div class="text-label-sm text-secondary/40 mt-1">45 mins ago</div>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="mt-1 w-2 h-2 rounded-full bg-blue-400 flex-shrink-0"></div>
+<div>
+<div class="text-body-md font-bold text-deep-navy">Attendance Warning</div>
+<div class="text-label-md text-secondary/60">3 students reached critical absence level</div>
+<div class="text-label-sm text-secondary/40 mt-1">2 hours ago</div>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="mt-1 w-2 h-2 rounded-full bg-green-400 flex-shrink-0"></div>
+<div>
+<div class="text-body-md font-bold text-deep-navy">Scholarship Approved</div>
+<div class="text-label-md text-secondary/60">Mariam Zaki - Merit based scholarship</div>
+<div class="text-label-sm text-secondary/40 mt-1">Yesterday</div>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 py-3 text-label-md font-bold text-primary border border-surface-gray/50 rounded-lg hover:bg-surface-container-low transition-all">View All Activity</button>
+</div>
+</div>
+</main>
+</div>
+<!-- Micro-interactions Script -->
+<script>
+        // Simple search highlighting simulation
+        document.querySelector('input[type="text"]').addEventListener('input', function(e) {
+            const rows = document.querySelectorAll('tbody tr');
+            const search = e.target.value.toLowerCase();
+            
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(search) ? '' : 'none';
+            });
+        });
+
+        // Hover effect for table rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.classList.add('bg-surface-container-low/50');
+            });
+            row.addEventListener('mouseleave', () => {
+                row.classList.remove('bg-surface-container-low/50');
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,77 @@
+What to ask your teammates to do
+
+After they accept the invitation, ask them to run:
+
+git clone https://github.com/MoSamir70/ITI-Management-Platform.git
+
+cd ITI-Management-Platform
+
+git checkout develop
+
+git pull origin develop
+
+git checkout -b feature/<their-feature>
+
+
+For example, Samir:
+
+git checkout -b feature/student-module
+
+
+Then they should:
+
+git add .
+
+git commit -m "Implement Student CRUD"
+
+git push -u origin feature/student-module
+
+Finally, they open a Pull Request:
+
+feature/student-module
+        ↓
+     develop
+
+
+As the repository owner, you review the PR and merge it into develop. Once all features for a milestone are complete and tested, create one final Pull Request:
+
+develop
+    ↓
+main
+
+
+------------------------------------------------
+Your workflow becomes:
+
+main
+        ▲
+        │
+develop
+        ▲
+        │
+feature/student-module
+
+feature/authentication
+
+feature/frontend
+
+Nobody pushes directly to:
+
+main ❌
+develop ❌
+
+Everyone pushes only to:
+
+feature/*
+
+Then:
+
+feature/*
+        ↓
+develop
+
+After all features are merged:
+
+develop
+      ↓
+main

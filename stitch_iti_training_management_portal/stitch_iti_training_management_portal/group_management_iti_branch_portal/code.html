@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Groups Management | ITI Branch Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Montserrat:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-highest": "#e3e2e2",
+                    "tertiary-fixed": "#ffdad7",
+                    "inverse-on-surface": "#f2f0f0",
+                    "deep-navy": "#203947",
+                    "on-secondary-fixed-variant": "#314a58",
+                    "on-secondary-fixed": "#021e2b",
+                    "on-surface-variant": "#58413f",
+                    "secondary-container": "#c9e3f5",
+                    "on-primary-container": "#ffd4d0",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#8b171d",
+                    "on-tertiary": "#ffffff",
+                    "surface-variant": "#e3e2e2",
+                    "secondary-fixed-dim": "#b0cadc",
+                    "secondary": "#496271",
+                    "secondary-fixed": "#cce6f8",
+                    "on-background": "#1b1c1c",
+                    "on-primary-fixed-variant": "#8a1a1b",
+                    "on-secondary-container": "#4d6675",
+                    "on-tertiary-fixed": "#410005",
+                    "surface-container-high": "#e9e8e7",
+                    "surface-bright": "#fbf9f9",
+                    "surface-container-low": "#f5f3f3",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface": "#fbf9f9",
+                    "tertiary": "#901b20",
+                    "on-primary-fixed": "#410003",
+                    "primary-fixed-dim": "#ffb3ad",
+                    "surface-dim": "#dbdad9",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#303031",
+                    "surface-tint": "#ab3330",
+                    "dark-crimson": "#901B20",
+                    "surface-container-lowest": "#ffffff",
+                    "pure-white": "#FFFFFF",
+                    "surface-container": "#efeded",
+                    "surface-gray": "#EDEDED",
+                    "tertiary-fixed-dim": "#ffb3ae",
+                    "tertiary-container": "#b13435",
+                    "outline-variant": "#dfbfbc",
+                    "iti-red": "#B03633",
+                    "outline": "#8c716e",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#ffd3d0",
+                    "background": "#fbf9f9",
+                    "primary-container": "#b03633",
+                    "primary-fixed": "#ffdad6",
+                    "primary": "#8f1d1e",
+                    "inverse-primary": "#ffb3ad",
+                    "on-surface": "#1b1c1c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sidebar-width": "280px",
+                    "base": "8px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "32px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Montserrat"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "title-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Montserrat"],
+                    "display-lg": ["Montserrat"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #F8F9FA;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .sidebar-active-gradient {
+            background: linear-gradient(90deg, rgba(176, 54, 51, 0.15) 0%, rgba(176, 54, 51, 0) 100%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #D1D5DB;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- Side Navigation Shell (from JSON: SideNavBar) -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-deep-navy shadow-2xl flex flex-col py-base z-50">
+<div class="px-6 py-8">
+<h1 class="font-headline-md text-headline-md font-bold text-pure-white flex items-center gap-2">
+<span class="material-symbols-outlined text-iti-red" style="font-size: 32px;">school</span>
+                ITI Portal
+            </h1>
+<p class="text-surface-variant/50 font-label-md text-label-md mt-1 uppercase tracking-widest">Branch Management</p>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4 custom-scrollbar overflow-y-auto">
+<!-- Active state determined as "Batches" (Groups) -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">school</span> Programs
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg border-l-4 border-iti-red bg-primary-container/20 text-pure-white font-bold font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">groups</span> Batches
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">badge</span> Staff
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">person</span> Students
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">analytics</span> Reports
+            </a>
+</nav>
+<div class="px-4 mt-auto border-t border-white/10 pt-6 pb-4">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 font-label-md text-label-md mb-2" href="#">
+<span class="material-symbols-outlined">settings</span> System Settings
+            </a>
+<div class="space-y-1">
+<a class="flex items-center gap-4 px-4 py-2 text-surface-variant/50 hover:text-pure-white font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span> Help Center
+                </a>
+<a class="flex items-center gap-4 px-4 py-2 text-surface-variant/50 hover:text-pure-white font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined text-[18px]">logout</span> Logout
+                </a>
+</div>
+</div>
+</aside>
+<!-- Top Navigation Bar (from JSON: TopNavBar) -->
+<header class="fixed top-0 right-0 w-[calc(100%-280px)] h-16 glass-nav flex justify-between items-center px-gutter z-40 border-b border-surface-gray/30 shadow-sm">
+<div class="flex items-center gap-8">
+<h2 class="font-headline-md text-headline-md font-extrabold text-primary">ITI Branch Portal</h2>
+<div class="flex items-center gap-6">
+<a class="font-body-md text-body-md text-secondary hover:text-primary transition-all" href="#">Schedules</a>
+<a class="font-body-md text-body-md text-secondary hover:text-primary transition-all" href="#">Attendance</a>
+<a class="font-body-md text-body-md text-secondary hover:text-primary transition-all" href="#">Grades</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-secondary/60">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-iti-red/20 w-64 text-body-md" placeholder="Search groups..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-secondary hover:bg-surface-container-low rounded-lg transition-all relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-iti-red rounded-full"></span>
+</button>
+<button class="p-2 text-secondary hover:bg-surface-container-low rounded-lg transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border-2 border-iti-red/10 cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="A professional close-up headshot of a Middle Eastern academic administrator in a modern office environment. The person is wearing a clean charcoal suit and has a welcoming, confident expression. The background is slightly blurred, showing a high-tech university lab with soft, natural lighting coming from large windows. The overall aesthetic is professional, corporate, and trustworthy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAZtPJI6DoTAFTfq5fRC1n2vHZmjvwDZpzg7kIqGZMWDirFrbLo5qmqvBRS4VZ65IO3h2MD2mY-thrn0gDE1ZA5mfury4BvRzeALWeeFjfZMm4Z3ECbxVp0pqDlysr07YzeQZupjegEPk_8jK0j23vB0oA7AYKay39eF6L6rFF6QQV4y17FW7COpIMhL2mgb8j48vFXPPN3_1Hs832S1dTjbrP3hyAYGXIdsbZfR-aXcBpnaWTszc85DCYEI4IGvkSquWozSLCgLzZ"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-[280px] pt-24 pb-12 px-gutter min-h-screen">
+<!-- Header & Action Row -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<nav class="flex items-center gap-2 text-label-sm text-secondary mb-2">
+<span>Portal</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-iti-red">Groups &amp; Batches</span>
+</nav>
+<h1 class="font-headline-lg text-headline-lg text-deep-navy">Learning Cohorts</h1>
+<p class="text-body-lg text-secondary mt-1">Manage and organize students into tracks and active groups.</p>
+</div>
+<button class="bg-iti-red text-pure-white px-6 py-3 rounded-lg font-bold flex items-center gap-2 shadow-lg shadow-iti-red/20 hover:scale-[1.02] active:scale-95 transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+                Create New Group
+            </button>
+</div>
+<!-- Filters Bar -->
+<div class="bg-pure-white p-4 rounded-xl shadow-sm border border-surface-gray/30 mb-8 flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-4">
+<div class="flex flex-col">
+<label class="text-[10px] font-bold text-secondary/60 uppercase ml-1 mb-1">Filter by Intake</label>
+<select class="border-surface-gray/50 rounded-lg text-body-md focus:ring-iti-red focus:border-iti-red min-w-[180px] cursor-pointer">
+<option>Intake 44 (Current)</option>
+<option>Intake 43 (Graduated)</option>
+<option>Intake 42</option>
+<option>Summer Internship 2024</option>
+</select>
+</div>
+<div class="flex flex-col">
+<label class="text-[10px] font-bold text-secondary/60 uppercase ml-1 mb-1">Track Category</label>
+<select class="border-surface-gray/50 rounded-lg text-body-md focus:ring-iti-red focus:border-iti-red min-w-[180px] cursor-pointer">
+<option>All Tracks</option>
+<option>Web Development</option>
+<option>Data Science</option>
+<option>Cyber Security</option>
+<option>UI/UX Design</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low p-1 rounded-lg">
+<button class="px-4 py-2 rounded-md bg-pure-white shadow-sm text-primary font-bold text-label-md">Active (12)</button>
+<button class="px-4 py-2 rounded-md text-secondary hover:text-primary transition-colors text-label-md">Pending (4)</button>
+<button class="px-4 py-2 rounded-md text-secondary hover:text-primary transition-colors text-label-md">Archived</button>
+</div>
+</div>
+<!-- Groups Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Group Card 1 -->
+<div class="bg-pure-white rounded-xl shadow-sm border border-surface-gray/30 overflow-hidden hover:shadow-xl transition-shadow group">
+<div class="h-2 bg-iti-red"></div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-primary-container/10 text-iti-red rounded-full text-label-sm font-bold">G-WD-44-A</span>
+<button class="text-secondary/40 hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+<h3 class="font-headline-md text-headline-md text-deep-navy mb-1">Full-Stack Development</h3>
+<p class="text-body-md text-secondary/70 mb-6">MERN Stack - Intensive Professional Track</p>
+<div class="space-y-4">
+<div class="flex items-center justify-between py-2 border-b border-surface-gray/30">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+<span class="text-body-md">Students</span>
+</div>
+<span class="font-bold text-deep-navy">28 / 30</span>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-surface-gray/30">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[20px]">person</span>
+<span class="text-body-md">Assigned TA</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-body-md font-medium">Ahmed Soliman</span>
+</div>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between">
+<div class="flex -space-x-3">
+<div class="w-8 h-8 rounded-full border-2 border-pure-white bg-surface-container-highest"></div>
+<div class="w-8 h-8 rounded-full border-2 border-pure-white bg-surface-container-highest"></div>
+<div class="w-8 h-8 rounded-full border-2 border-pure-white bg-surface-container-highest"></div>
+<div class="w-8 h-8 rounded-full border-2 border-pure-white bg-surface-container-low flex items-center justify-center text-[10px] font-bold">+25</div>
+</div>
+<button class="text-iti-red font-bold text-label-md flex items-center gap-1 hover:underline">
+                            View Details <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Group Card 2 -->
+<div class="bg-pure-white rounded-xl shadow-sm border border-surface-gray/30 overflow-hidden hover:shadow-xl transition-shadow group">
+<div class="h-2 bg-deep-navy"></div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-surface-container-highest text-deep-navy rounded-full text-label-sm font-bold">G-DS-44-C</span>
+<button class="text-secondary/40 hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+<h3 class="font-headline-md text-headline-md text-deep-navy mb-1">Data Engineering</h3>
+<p class="text-body-md text-secondary/70 mb-6">Big Data &amp; Cloud Infrastructure</p>
+<div class="space-y-4">
+<div class="flex items-center justify-between py-2 border-b border-surface-gray/30">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+<span class="text-body-md">Students</span>
+</div>
+<span class="font-bold text-deep-navy">22 / 25</span>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-surface-gray/30">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[20px]">person</span>
+<span class="text-body-md">Assigned TA</span>
+</div>
+<span class="text-body-md font-medium text-deep-navy">Sara Mansour</span>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between">
+<div class="flex -space-x-3">
+<div class="w-8 h-8 rounded-full border-2 border-pure-white bg-surface-container-highest"></div>
+<div class="w-8 h-8 rounded-full border-2 border-pure-white bg-surface-container-highest"></div>
+<div class="w-8 h-8 rounded-full border-2 border-pure-white bg-surface-container-low flex items-center justify-center text-[10px] font-bold">+19</div>
+</div>
+<button class="text-iti-red font-bold text-label-md flex items-center gap-1 hover:underline">
+                            View Details <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Group Card 3 -->
+<div class="bg-pure-white rounded-xl shadow-sm border border-surface-gray/30 overflow-hidden hover:shadow-xl transition-shadow group">
+<div class="h-2 bg-iti-red"></div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-primary-container/10 text-iti-red rounded-full text-label-sm font-bold">G-UX-44-B</span>
+<button class="text-secondary/40 hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+<h3 class="font-headline-md text-headline-md text-deep-navy mb-1">UI/UX Design</h3>
+<p class="text-body-md text-secondary/70 mb-6">User Centered Research &amp; Visuals</p>
+<div class="space-y-4">
+<div class="flex items-center justify-between py-2 border-b border-surface-gray/30">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+<span class="text-body-md">Students</span>
+</div>
+<span class="font-bold text-deep-navy">15 / 15</span>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-surface-gray/30">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[20px]">person</span>
+<span class="text-body-md">Assigned TA</span>
+</div>
+<span class="text-body-md font-medium text-deep-navy">Omar El-Gohary</span>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between">
+<div class="flex -space-x-3">
+<div class="w-8 h-8 rounded-full border-2 border-pure-white bg-surface-container-highest"></div>
+<div class="w-8 h-8 rounded-full border-2 border-pure-white bg-surface-container-highest"></div>
+<div class="w-8 h-8 rounded-full border-2 border-pure-white bg-surface-container-low flex items-center justify-center text-[10px] font-bold">+12</div>
+</div>
+<button class="text-iti-red font-bold text-label-md flex items-center gap-1 hover:underline">
+                            View Details <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Group Card 4 -->
+<div class="bg-pure-white rounded-xl shadow-sm border border-surface-gray/30 overflow-hidden hover:shadow-xl transition-shadow group">
+<div class="h-2 bg-deep-navy"></div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-surface-container-highest text-deep-navy rounded-full text-label-sm font-bold">G-CS-44-A</span>
+<button class="text-secondary/40 hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+<h3 class="font-headline-md text-headline-md text-deep-navy mb-1">Cyber Security</h3>
+<p class="text-body-md text-secondary/70 mb-6">Pentesting &amp; Network Defense</p>
+<div class="space-y-4">
+<div class="flex items-center justify-between py-2 border-b border-surface-gray/30">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+<span class="text-body-md">Students</span>
+</div>
+<span class="font-bold text-deep-navy">19 / 20</span>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-surface-gray/30">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[20px]">person</span>
+<span class="text-body-md">Assigned TA</span>
+</div>
+<span class="text-body-md font-medium text-deep-navy">Layla Fouad</span>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between">
+<div class="flex -space-x-3">
+<div class="w-8 h-8 rounded-full border-2 border-pure-white bg-surface-container-highest"></div>
+<div class="w-8 h-8 rounded-full border-2 border-pure-white bg-surface-container-highest"></div>
+<div class="w-8 h-8 rounded-full border-2 border-pure-white bg-surface-container-low flex items-center justify-center text-[10px] font-bold">+16</div>
+</div>
+<button class="text-iti-red font-bold text-label-md flex items-center gap-1 hover:underline">
+                            View Details <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Stats Card (Bento Style) -->
+<div class="lg:col-span-2 bg-deep-navy rounded-xl shadow-lg border border-white/10 p-8 flex flex-col justify-between overflow-hidden relative group">
+<div class="relative z-10">
+<h3 class="text-pure-white font-headline-md text-headline-md mb-2">Overall Branch Capacity</h3>
+<p class="text-surface-variant/60 text-body-md max-w-md">Currently managing 12 active groups across 6 tracks for Intake 44. Total enrollment at 92% capacity.</p>
+</div>
+<div class="grid grid-cols-3 gap-8 mt-12 relative z-10">
+<div>
+<div class="text-iti-red font-display-lg text-[42px] font-extrabold mb-1">342</div>
+<div class="text-surface-variant/40 text-label-sm uppercase tracking-widest">Total Students</div>
+</div>
+<div>
+<div class="text-pure-white font-display-lg text-[42px] font-extrabold mb-1">12</div>
+<div class="text-surface-variant/40 text-label-sm uppercase tracking-widest">Active Cohorts</div>
+</div>
+<div>
+<div class="text-pure-white font-display-lg text-[42px] font-extrabold mb-1">8</div>
+<div class="text-surface-variant/40 text-label-sm uppercase tracking-widest">Pending Tracks</div>
+</div>
+</div>
+<!-- Abstract Decorative Background -->
+<div class="absolute -right-20 -bottom-20 opacity-10 group-hover:scale-110 transition-transform duration-700">
+<span class="material-symbols-outlined text-[300px] text-pure-white">hub</span>
+</div>
+</div>
+</div>
+<!-- Quick Search/Table Section for Detailed View -->
+<div class="mt-12 bg-pure-white rounded-xl shadow-sm border border-surface-gray/30 overflow-hidden">
+<div class="px-6 py-4 border-b border-surface-gray/30 flex justify-between items-center bg-surface-bright">
+<h3 class="font-title-lg text-title-lg text-deep-navy">Group Performance Snapshot</h3>
+<div class="flex gap-2">
+<button class="p-2 border border-surface-gray/50 rounded-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-secondary">download</span>
+</button>
+<button class="p-2 border border-surface-gray/50 rounded-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-secondary">print</span>
+</button>
+</div>
+</div>
+<table class="w-full text-left">
+<thead class="bg-surface-container-low/50">
+<tr>
+<th class="px-6 py-4 font-label-sm text-label-sm text-secondary uppercase tracking-widest">Group ID</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-secondary uppercase tracking-widest">Track</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-secondary uppercase tracking-widest">Enrollment</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-secondary uppercase tracking-widest">Avg. Attendance</th>
+<th class="px-6 py-4 font-label-sm text-label-sm text-secondary uppercase tracking-widest">Status</th>
+<th class="px-6 py-4"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-gray/30">
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4 font-medium text-deep-navy">G-WD-44-A</td>
+<td class="px-6 py-4 text-body-md text-secondary">Web Dev</td>
+<td class="px-6 py-4">
+<div class="w-full bg-surface-container-highest h-2 rounded-full max-w-[100px]">
+<div class="bg-iti-red h-2 rounded-full" style="width: 93%;"></div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md font-bold text-deep-navy">96%</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 text-emerald-600 text-label-sm font-bold">
+<span class="w-2 h-2 bg-emerald-500 rounded-full"></span> On Track
+                            </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:underline text-label-md font-bold">Manage</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4 font-medium text-deep-navy">G-DS-44-C</td>
+<td class="px-6 py-4 text-body-md text-secondary">Data Eng</td>
+<td class="px-6 py-4">
+<div class="w-full bg-surface-container-highest h-2 rounded-full max-w-[100px]">
+<div class="bg-iti-red h-2 rounded-full" style="width: 88%;"></div>
+</div>
+</td>
+<td class="px-6 py-4 text-body-md font-bold text-deep-navy">89%</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 text-amber-600 text-label-sm font-bold">
+<span class="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></span> At Risk
+                            </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:underline text-label-md font-bold">Manage</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+<!-- Contextual FAB (Hidden on this task-focused page as per rules, but included if needed by logic) -->
+<!-- The FAB suppression rule: "suppress the FAB on Settings, Profile, Details, and Transactional screens." -->
+<!-- Since this is a Landing/Management page for Groups, a FAB for "Quick Add Student" would be appropriate but let's stick to the clear 'Create Group' button in the header. -->
+<script>
+        // Simple micro-interaction for hover states
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+                card.style.transition = 'transform 0.3s ease';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Search Bar Focus Effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-iti-red/30');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-iti-red/30');
+        });
+    </script>
+</body></html>
