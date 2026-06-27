@@ -47,6 +47,7 @@ public static class DependencyInjection
         services.AddScoped<ItiPortal.Application.Attendance.IAttendanceService, ItiPortal.Persistence.Attendances.AttendanceService>();
         services.AddScoped<ItiPortal.Application.Exams.IExamService, ItiPortal.Persistence.Exams.ExamService>();
         services.AddScoped<ItiPortal.Application.Notifications.INotificationService, ItiPortal.Persistence.Notifications.NotificationService>();
+        services.AddScoped<ItiPortal.Application.Kpi.IKpiService, ItiPortal.Persistence.Kpis.KpiService>();
 
         return services;
     }
