@@ -1,0 +1,4 @@
+
+# Build artifacts (must match anywhere in tree)
+**/bin/
+**/obj/
