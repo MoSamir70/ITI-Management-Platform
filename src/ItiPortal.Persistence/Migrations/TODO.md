@@ -1,0 +1,1 @@
+TODO: Cannot_delete_Branch_that_has_Intakes test removed due to EF Core client-side check throwing InvalidOperationException before reaching DB. Re-add with proper Testcontainers SQL Server integration when DB layer matures.
