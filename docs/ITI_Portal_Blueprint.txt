@@ -1,0 +1,654 @@
+
+
+ITI BRANCH PORTAL
+SYSTEM BLUEPRINT
+
+Full-Stack Platform for Training Management, Academic Supervision & Student Services
+Stack: ASP.NET Core  ·  Entity Framework Core  ·  Angular 17+  ·  SQL Server  ·  JWT / RBAC
+
+
+
+
+
+Table of Contents
+1.  System Overview & Roles
+2.  Role Permissions Matrix
+3.  Organisational Structure (Branch / Intake / Track / Group)
+4.  Authentication & User Management
+5.  Tracks & Courses Module
+6.  Grades Module
+7.  Attendance & Absence Module
+8.  Exams & Notifications Module
+9.  KPI Module (Certificates & Freelance)
+10. Student Portal
+11. Student Affairs Module
+12. Teacher Assistant Module
+13. Training Manager Module
+14. Database Schema
+15. API Endpoint Reference
+16. Angular Module Map
+17. Implementation Roadmap
+
+
+1. System Overview & Roles
+
+The ITI Branch Portal is a unified web platform managing the full lifecycle of ITI training tracks: from branch and intake setup, through academic delivery, to student KPI tracking. It is built on ASP.NET Core (backend) and Angular 17+ (frontend) with JWT-based authentication and Role-Based Access Control (RBAC).
+
+1.1  The Five Roles
+Role	Description
+Training Manager	Super-admin. Creates branches, intakes, tracks, and assigns supervisors to tracks. Has full read/write access to every module.
+Supervisor	Owns one track (per intake). Manages courses, enters grades, publishes grades and exam dates, approves absence requests and KPIs.
+Teacher Assistant	Assigned to one or more groups within a track. Enters lab grades and records attendance for the courses/groups assigned.
+Student Affairs	Creates and manages student accounts. Views student personal data, course tables, and absence records. Cannot view grades. Can view exam schedules (including corrective exams) for monitoring purposes.
+Student	Views own course table, published grades, attendance record, exam notifications. Submits absence requests and KPIs.
+
+1.2  Key Design Principles
+•Training Manager creates all tracks and assigns exactly one supervisor per track-intake.
+•Student Affairs creates all student accounts with personal enrolment data.
+•Supervisors can view the personal data of students enrolled in their track.
+•Student Affairs can view exam schedules (regular and corrective) for monitoring — they cannot modify them.
+•Teacher Assistants can view student grades for their assigned courses only (read-only).
+•No role can access data outside its defined scope; all API routes are protected by role claims.
+
+
+
+2. Role Permissions Matrix
+
+Feature / Action	Training Mgr	Supervisor	TA	St. Affairs	Student
+Create User Accounts	Yes	No	No	Students only	No
+Create Tracks	Yes	No	No	No	No
+Assign Supervisor to Track	Yes	No	No	No	No
+Create / Edit Courses	Yes	Own only	No	No	No
+Set Course Hours (lec/lab/self)	Yes	Own only	No	No	No
+Enter / Edit Grades	Yes	Own course	Lab only	No	No
+Publish Grades	Yes	Own only	No	No	No
+View Grades	Yes	Own course	Own course	No	Published only
+Manage Exam Dates & Links	Yes	Own only	No	View only	No
+View Corrective Exam	Yes	Yes	No	View only	If assigned
+Approve Absence Requests	Yes	Own only	No	No	No
+Record Attendance	Yes	Yes	Own group	Offline	No
+Submit Absence Request	No	No	No	No	Yes
+View Absence Records	Yes	Own track	Own group	Yes	Own
+View Student Personal Data	Yes	Own track	No	Yes	Own
+Create / Manage Intakes	Yes	No	No	No	No
+Manage Groups (within track)	Yes	Yes	No	No	No
+Assign TAs to Groups	Yes	Yes	No	No	No
+Submit / View KPIs	Yes	View + Approve	No	View status	Yes
+Approve KPIs	Yes	Yes	No	No	No
+System Configuration	Yes	No	No	No	No
+
+Key: Yes = Full access  |  Own only = Restricted to own records  |  No = No access  |  Partial = Conditional / read-only
+
+
+
+3. Organisational Structure
+
+The portal hierarchy has four levels: Branch → Intake → Track → Group. This structure supports multiple intakes of the same track running concurrently within the same branch.
+
+3.1  Hierarchy
+Branch  ›  Intake  ›  Track  ›  Group  ›  Students / Courses / TAs
+
+Example:
+Branch	Track	Intake	Groups
+Alexandria	Full Stack .NET	Intake 45	Group A, Group B, Group C
+Alexandria	Full Stack .NET	Intake 46	Group A, Group B
+Alexandria	AI / Data Science	Intake 45	Group A
+
+3.2  Rules
+•A Branch has many Intakes.
+•An Intake contains one or more Tracks (e.g. Full Stack .NET Intake 45, AI Intake 45).
+•A Track in an Intake is assigned exactly one Supervisor by the Training Manager.
+•A Track in an Intake can have multiple Groups (e.g. Group A, Group B, Group C).
+•Each Group has its own set of Teacher Assistants (assigned by the Supervisor or Training Manager).
+•Each Group has its own student roster; a student belongs to exactly one Group.
+•Courses are defined at the Track level and are shared across all groups in that track.
+•Grades and attendance are recorded at the student level within a course and group.
+
+3.3  Branch
+Entity: Branch
+Column	Type	Notes
+Id	UNIQUEIDENTIFIER / int PK	Auto-generated
+Name	NVARCHAR(200)	e.g. Alexandria, Cairo
+Code	NVARCHAR(50)	Short code e.g. ALX
+IsActive	BIT	Soft delete
+CreatedAt	DATETIME2	Audit field
+CreatedBy	FK → Users.Id	Training Manager who created
+
+3.4  Intake
+Entity: Intake
+Column	Type	Notes
+Id	PK	Auto-generated
+BranchId	FK → Branches.Id	Parent branch
+Name	NVARCHAR(100)	e.g. Intake 45
+Number	INT	Intake sequence number
+StartDate	DATE	Intake start
+EndDate	DATE	Intake end
+IsActive	BIT	
+
+3.5  Track
+Entity: Track
+Column	Type	Notes
+Id	PK	
+IntakeId	FK → Intakes.Id	Which intake this track belongs to
+Name	NVARCHAR(200)	e.g. Full Stack .NET
+Code	NVARCHAR(50)	
+SupervisorId	FK → Users.Id	Assigned by Training Manager; one supervisor per track-intake
+CertificateKpiEnabled	BIT	Training Manager or Supervisor can toggle
+FreelanceKpiEnabled	BIT	
+Status	NVARCHAR(20)	Active / Archived
+CreatedAt	DATETIME2	
+
+3.6  Group
+Entity: Group
+Column	Type	Notes
+Id	PK	
+TrackId	FK → Tracks.Id	Parent track
+Name	NVARCHAR(100)	e.g. Group A
+Code	NVARCHAR(50)	Optional short code
+IsActive	BIT	
+
+Entity: GroupTAs (many-to-many)
+Column	Type	Notes
+GroupId	FK → Groups.Id	
+UserId	FK → Users.Id (TA)	TA assigned to this group
+AssignedAt	DATETIME2	
+AssignedBy	FK → Users.Id	Supervisor or Training Manager
+
+
+
+
+4. Authentication & User Management
+
+4.1  Auth Flow
+1.User navigates to /login.
+2.Submits email + password → POST /api/auth/login.
+3.Server validates credentials via ASP.NET Identity.
+4.Server issues JWT access token (15 min) + refresh token (7 days).
+5.Angular stores access token in memory; refresh token in httpOnly cookie.
+6.HTTP interceptor attaches Bearer token to every outgoing request.
+7.Route guard reads role claim from token; redirects if unauthorised.
+8.On token expiry, interceptor silently calls /api/auth/refresh.
+
+4.2  User Entity
+Entity: Users (extends ASP.NET Identity)
+Column	Type	Notes
+Id	UNIQUEIDENTIFIER	ASP.NET Identity PK
+FullName	NVARCHAR(200)	
+Email	NVARCHAR(256)	Login credential; unique
+NationalId	NVARCHAR(20)	For students; optional for staff
+Phone	NVARCHAR(30)	
+Gender	NVARCHAR(10)	Male / Female
+DateOfBirth	DATE	
+PhotoUrl	NVARCHAR(500)	Profile photo (stored in file system)
+Role	NVARCHAR(50)	TrainingManager / Supervisor / TA / StudentAffairs / Student
+GroupId	FK → Groups.Id	Null for non-student roles
+IsActive	BIT	Soft delete / deactivation
+MustChangePassword	BIT	Forced on first login
+CreatedAt	DATETIME2	
+CreatedBy	FK → Users.Id	Student Affairs for students; Training Manager for staff
+
+Notes:
+•Student Affairs creates student accounts (personal data: name, national ID, phone, email, gender, DOB, group assignment).
+•Training Manager creates staff accounts (supervisors, TAs, student affairs officers).
+•Passwords are hashed via ASP.NET Identity (PBKDF2). Plain-text passwords are never stored.
+
+
+
+5. Tracks & Courses Module
+
+5.1  Track Creation Flow
+9.Training Manager creates an Intake under a Branch.
+10.Training Manager creates a Track and assigns a Supervisor.
+11.Training Manager or Supervisor creates Groups within the track.
+12.Training Manager or Supervisor assigns TAs to each Group.
+13.Supervisor adds Courses to the track.
+14.Supervisor configures course details: hours, grading mode, KPI flags, instructor name.
+
+5.2  Course Entity
+Entity: Courses
+Column	Type	Notes
+Id	PK	
+TrackId	FK → Tracks.Id	All groups in the track share the same course list
+Name	NVARCHAR(200)	
+Code	NVARCHAR(50)	
+InstructorName	NVARCHAR(200)	Free text; instructor is not a system user
+LectureHours	INT	
+LabHours	INT	
+SelfStudyHours	INT	
+GradingMode	NVARCHAR(30)	GradesOnly / GradesAndAbsence / LabAndAbsence / ExamMode
+CertificateKpiEnabled	BIT	Can override track-level flag
+FreelanceKpiEnabled	BIT	
+HasExam	BIT	Whether exam scheduling is applicable
+Status	NVARCHAR(20)	Active / Archived
+CreatedAt	DATETIME2	
+
+
+
+
+6. Grades Module
+
+6.1  Grading Modes
+Mode	Description	Who Enters
+GradesOnly	Final written/assignment mark.	Supervisor
+GradesAndAbsence	Mark + attendance percentage affect result.	Supervisor (grade), Supervisor/TA (absence)
+LabAndAbsence	Lab practical grade + attendance.	TA (lab grade), Supervisor/TA (absence)
+ExamMode	Exam date published; optional online link; corrective exam for specific students.	Supervisor publishes; students notified
+
+6.2  Grade Entity
+Entity: Grades
+Column	Type	Notes
+Id	PK	
+StudentId	FK → Users.Id	
+CourseId	FK → Courses.Id	
+GroupId	FK → Groups.Id	Which group the student is in
+LabGrade	DECIMAL(5,2)	Entered by TA; nullable if mode does not include lab
+ExamGrade	DECIMAL(5,2)	Entered by Supervisor
+TotalGrade	DECIMAL(5,2) computed	Calculated by business logic
+AbsencePercentage	DECIMAL(5,2)	Computed from Attendance table
+IsPublished	BIT	Default false
+PublishedAt	DATETIME2	
+PublishedBy	FK → Users.Id	Supervisor or Training Manager
+Notes	NVARCHAR(500)	Optional supervisor note
+EnteredAt	DATETIME2	
+
+
+6.3  Grade Flow
+15.TA enters lab grades for their group → saved as draft.
+16.Supervisor enters exam/other grades per course.
+17.Supervisor reviews combined grades; may edit TA lab grades if needed.
+18.Supervisor toggles 'Publish' → IsPublished = true, PublishedAt = now.
+19.Students see grades in their portal immediately after publication.
+•Training Manager can perform any step above across all tracks.
+•TA can view (read-only) grades for their course — they cannot publish.
+
+
+
+7. Attendance & Absence Module
+
+7.1  Absence Types
+•Online Absence — recorded for virtual/remote sessions.
+•Offline Absence — recorded for in-person sessions.
+•Pre-approved Request — student submits in advance; supervisor approves or rejects.
+
+7.2  Attendance Entity
+Entity: Attendance
+Column	Type	Notes
+Id	PK	
+StudentId	FK → Users.Id	
+CourseId	FK → Courses.Id	
+GroupId	FK → Groups.Id	
+SessionDate	DATE	
+SessionType	NVARCHAR(20)	Online / Offline
+IsAbsent	BIT	
+AbsenceRequestId	FK → AbsenceRequests.Id	Nullable; links to approved request
+RecordedBy	FK → Users.Id	TA, Supervisor, or Student Affairs
+Notes	NVARCHAR(300)	
+RecordedAt	DATETIME2	
+
+
+7.3  Absence Request Entity
+Entity: AbsenceRequests
+Column	Type	Notes
+Id	PK	
+StudentId	FK → Users.Id	
+RequestedDates	NVARCHAR(MAX) JSON	Array of requested absence dates
+Reason	NVARCHAR(1000)	Student's description
+Status	NVARCHAR(20)	Pending / Approved / Rejected
+ReviewedBy	FK → Users.Id	Supervisor who acted
+ReviewedAt	DATETIME2	
+ReviewNote	NVARCHAR(500)	Optional supervisor response
+SubmittedAt	DATETIME2	
+
+
+7.4  Who Can Record Attendance
+Action	Training Mgr	Supervisor	TA
+Record online absence	Yes	Yes	Own group only
+Record offline absence	Yes	Yes	Own group only
+Approve absence request	Yes	Yes	No
+View absence (all students)	Yes	Own track	Own group
+
+Student Affairs can record offline absences and view all absence records but cannot approve requests.
+
+
+
+8. Exams & Notifications Module
+
+8.1  Exam Entity
+Entity: Exams
+Column	Type	Notes
+Id	PK	
+CourseId	FK → Courses.Id	
+ExamType	NVARCHAR(20)	Regular / Corrective
+ExamDate	DATETIME2	Date and time
+ExamLink	NVARCHAR(500)	Optional; for online exams
+Location	NVARCHAR(200)	Room number or platform name
+DurationMinutes	INT	
+IsPublished	BIT	Supervisor toggles this to notify students
+PublishedAt	DATETIME2	
+Notes	NVARCHAR(500)	Extra instructions
+
+
+Entity: CorrectiveExamStudents (many-to-many)
+Column	Type	Notes
+ExamId	FK → Exams.Id	Must be a Corrective type exam
+StudentId	FK → Users.Id	Students selected by supervisor
+
+
+8.2  Notification Types
+Notification Type	Recipients	Trigger
+Exam Scheduled	All enrolled students in course	Supervisor publishes exam
+Corrective Exam	Targeted students only	Supervisor selects students & publishes
+Grades Published	Students in course	Supervisor publishes grades
+Absence Request Update	The requesting student	Supervisor approves or rejects
+KPI Decision	The submitting student	Supervisor approves or rejects KPI
+General Announcement	Track / group / all students	Supervisor or Training Manager posts
+
+8.3  Notification Entity
+Entity: Notifications
+Column	Type	Notes
+Id	PK	
+UserId	FK → Users.Id	Recipient
+Title	NVARCHAR(200)	
+Body	NVARCHAR(2000)	
+Type	NVARCHAR(50)	ExamScheduled / CorrectiveExam / GradePublished / etc.
+RelatedEntityId	NVARCHAR(100)	Nullable; e.g. ExamId or CourseId
+IsRead	BIT	
+CreatedAt	DATETIME2	
+
+
+
+
+9. KPI Module
+
+Two KPI types exist: Certificate and Freelance. Each type can be enabled at the track level, at the individual course level, or both. The supervisor configures which KPI types are applicable.
+
+9.1  Certificate KPI
+•Supervisor enables certificate KPI on a track and/or specific courses.
+•Student submits a certificate with the following data:
+◦Certificate Name (title of the certificate)
+◦Issuing Body (e.g. Coursera, AWS, Microsoft)
+◦Issue Date
+◦Expiry Date (optional)
+◦Certificate File (PDF or image upload)
+◦Which track/course requirement it fulfils
+
+9.2  Freelance KPI
+•Supervisor enables freelance KPI on a track and/or specific courses.
+•Student submits a freelance project with the following data:
+◦Project Title
+◦Platform Used (e.g. Upwork, Fiverr, Direct client)
+◦Client Contact (name + email or phone)
+◦Project Description (what was delivered)
+◦Payment Screenshot (image upload — proof of payment)
+◦Amount Earned (optional, in EGP or USD)
+
+9.3  KPI Entity
+Entity: KPIs
+Column	Type	Notes
+Id	PK	
+StudentId	FK → Users.Id	
+TrackId	FK → Tracks.Id	Nullable; for track-level KPI
+CourseId	FK → Courses.Id	Nullable; for course-level KPI
+KpiType	NVARCHAR(20)	Certificate / Freelance
+Title	NVARCHAR(300)	Certificate name or project title
+IssuingBody	NVARCHAR(200)	Certificate only
+IssueDate	DATE	Certificate only
+ExpiryDate	DATE	Certificate only; nullable
+Platform	NVARCHAR(100)	Freelance only
+ClientContact	NVARCHAR(300)	Freelance only
+ProjectDescription	NVARCHAR(2000)	Freelance only
+AmountEarned	DECIMAL(10,2)	Freelance only; optional
+FileUrl	NVARCHAR(500)	Certificate file or payment screenshot
+Status	NVARCHAR(20)	Pending / Approved / Rejected
+ReviewedBy	FK → Users.Id	Supervisor or Training Manager
+ReviewedAt	DATETIME2	
+ReviewNote	NVARCHAR(500)	
+SubmittedAt	DATETIME2	
+
+
+9.4  KPI Visibility Rules
+Action	Training Mgr	Supervisor	St. Affairs	Student
+Submit KPI	No	No	No	Yes
+View own KPIs + status	Yes	Yes	Yes	Yes
+Approve / Reject KPI	Yes	Yes	No	No
+
+
+
+10. Student Portal
+
+Students access a role-specific dashboard after login. The following features are available:
+
+Feature	Details
+Course Table	View full course list for own track/intake/group. Shows lecture, lab, and self-study hours, grading mode, and instructor name.
+My Grades	Visible only after supervisor publishes. Shows lab grade, exam grade, and total per course.
+Attendance	Total absences per course. Online/offline split. Percentage vs. allowed threshold.
+Absence Request	Submit date range + reason. Track approval status (Pending / Approved / Rejected).
+Notifications	Exam dates, grade releases, KPI decisions, corrective exam alerts. Inbox-style list with read/unread status.
+Certificate KPI	Submit certificate with file upload. View approval status and reviewer note.
+Freelance KPI	Submit project with payment screenshot. View approval status.
+My Profile	View own personal data: name, national ID, phone, email, group, intake, track.
+
+
+
+11. Student Affairs Module
+
+Student Affairs staff are responsible for student account creation and pastoral monitoring. They have no access to academic grades.
+
+11.1  Capabilities
+Capability	Details
+Create Student Accounts	Full personal data: name, national ID, phone, email, gender, date of birth, photo, group assignment, intake.
+View Student Profile	Read-only access to all personal data fields for any student.
+View Course Table	See any student's track course list with hours breakdown. Cannot see grades.
+View Absence Records	Online and offline absences per student per course. Compare to threshold.
+Record Offline Absence	Can record in-person absences for any student.
+View Absence Requests	See all submitted requests and supervisor decisions. Cannot approve.
+View KPI Status	See submitted KPIs and whether supervisor approved or rejected. No action.
+View Exam Schedules	Can see regular and corrective exam dates and locations for monitoring purposes. Read-only.
+Student Search & Filter	Search by name, national ID, group, track. Filter by absence risk. Export reports.
+
+RESTRICTION: Student Affairs CANNOT view student grades (published or draft), exam scores, or grade breakdowns.
+
+
+
+12. Teacher Assistant Module
+
+Teacher Assistants are assigned to one or more Groups within a track by the Supervisor or Training Manager. Multiple TAs can be assigned to the same group. Their scope is always limited to their assigned group(s).
+
+12.1  Capabilities
+Capability	Details
+Enter Lab Grades	Enter and update lab grades for students in their assigned group for applicable courses.
+View All Grades	Read-only view of all grades (lab + exam + total) for students in their assigned courses. Cannot publish.
+Record Attendance	Record online and offline absence for students in their assigned group.
+View Course Info	Read-only: course name, hours, instructor, grading mode.
+View Absence Requests	View requests from students in their group. Cannot approve — approval is supervisor-only.
+View Student List	Name, email, and group of students in their assigned group. No access to national ID or full personal data.
+View Notifications	Receive exam date notifications for assigned courses.
+
+TA CANNOT: Create or edit tracks/courses, publish grades, approve absence requests or KPIs, access other tracks or groups.
+
+
+
+13. Training Manager Module
+
+The Training Manager is the system super-admin. They inherit all permissions of all other roles and have no access restrictions within the portal.
+
+13.1  Exclusive Capabilities
+•Create and manage Branches, Intakes, Tracks.
+•Assign Supervisors to tracks (one per track-intake).
+•Create staff accounts (Supervisors, TAs, Student Affairs officers).
+•Access any track, course, grade, or student record regardless of track assignment.
+•Override or edit any grade, attendance record, or KPI decision.
+•Publish grades and exam dates on behalf of any supervisor.
+•Generate system-wide reports: grade distributions, absence rates, KPI completion.
+•Configure system settings: academic calendar, absence thresholds, KPI requirements.
+•Broadcast notifications to any role, track, or group.
+•Deactivate or reactivate any user account.
+
+
+
+14. Database Schema
+
+All primary keys are INT IDENTITY unless noted. Foreign keys use ON DELETE RESTRICT unless soft-delete is indicated. All entity tables include CreatedAt DATETIME2 and UpdatedAt DATETIME2 audit columns (omitted from individual tables for brevity).
+
+14.1  Complete Entity List
+•Branches
+•Intakes
+•Tracks
+•Groups
+•GroupTAs
+•Users (extends ASP.NET Identity)
+•Courses
+•StudentCourseEnrollments
+•Grades
+•Attendance
+•AbsenceRequests
+•Exams
+•CorrectiveExamStudents
+•KPIs
+•Notifications
+
+14.2  StudentCourseEnrollments
+Entity: StudentCourseEnrollments
+Column	Type	Notes
+StudentId	FK → Users.Id	
+CourseId	FK → Courses.Id	
+GroupId	FK → Groups.Id	
+EnrolledAt	DATETIME2	
+Status	NVARCHAR(20)	Active / Dropped / Completed
+
+14.3  Entity Relationships Summary
+From	Relation	To
+Branch	1 → many	Intakes
+Intake	1 → many	Tracks
+Track	1 → 1	Supervisor (User)
+Track	1 → many	Groups
+Track	1 → many	Courses
+Group	many → many	Users (TAs) via GroupTAs
+Group	1 → many	Users (Students)
+Student	many → many	Courses via StudentCourseEnrollments
+Student + Course	1 → 1	Grades (one grade record per student per course)
+Student + Course + Date	1 → 1	Attendance (one record per session)
+Course	1 → many	Exams
+Exam (Corrective)	many → many	Students via CorrectiveExamStudents
+Student	1 → many	KPIs
+User	1 → many	Notifications
+
+
+
+15. API Endpoint Reference
+
+All endpoints are prefixed with /api/v1. All endpoints require Authorization: Bearer <token> except /auth/login and /auth/refresh.
+
+15.1  Auth
+Method	Route	Roles
+POST	/auth/login	Public
+POST	/auth/refresh	Public
+POST	/auth/logout	All authenticated
+POST	/auth/forgot-password	Public
+POST	/auth/reset-password	Public (token-gated)
+
+15.2  Users
+Method	Route	Roles
+GET	/users	TrainingManager
+POST	/users	TrainingManager (staff), StudentAffairs (students)
+GET	/users/{id}	TrainingManager, StudentAffairs, Supervisor (own track)
+PUT	/users/{id}	TrainingManager, StudentAffairs (student data)
+PATCH	/users/{id}/deactivate	TrainingManager
+
+15.3  Branches, Intakes, Tracks, Groups
+Method	Route	Roles
+GET/POST/PUT	/branches	TrainingManager
+GET/POST/PUT	/branches/{id}/intakes	TrainingManager
+GET/POST/PUT	/intakes/{id}/tracks	TrainingManager
+PATCH	/tracks/{id}/assign-supervisor	TrainingManager
+GET/POST/PUT	/tracks/{id}/groups	TrainingManager, Supervisor (own track)
+POST/DELETE	/groups/{id}/tas	TrainingManager, Supervisor (own track)
+
+15.4  Courses
+Method	Route	Roles
+GET	/tracks/{id}/courses	TrainingManager, Supervisor, TA (own), Student (enrolled), StudentAffairs
+POST	/tracks/{id}/courses	TrainingManager, Supervisor (own track)
+PUT	/courses/{id}	TrainingManager, Supervisor (own track)
+DELETE	/courses/{id}	TrainingManager, Supervisor (own track)
+
+15.5  Grades
+Method	Route	Roles
+GET	/courses/{id}/grades	TrainingManager, Supervisor (own), TA (own course, read-only)
+PUT	/courses/{id}/grades/{studentId}/lab	TrainingManager, Supervisor, TA (own group)
+PUT	/courses/{id}/grades/{studentId}/exam	TrainingManager, Supervisor (own course)
+PATCH	/courses/{id}/grades/publish	TrainingManager, Supervisor (own course)
+GET	/students/{id}/grades	TrainingManager, Supervisor (own track), Student (own, published only)
+
+15.6  Attendance
+Method	Route	Roles
+GET	/courses/{id}/attendance	TrainingManager, Supervisor, TA (own group), StudentAffairs
+POST	/courses/{id}/attendance	TrainingManager, Supervisor, TA (own group), StudentAffairs
+GET	/absence-requests	TrainingManager, Supervisor (own track)
+POST	/absence-requests	Student
+PATCH	/absence-requests/{id}/review	TrainingManager, Supervisor (own track)
+
+15.7  Exams & KPIs
+Method	Route	Roles
+GET/POST/PUT	/courses/{id}/exams	TrainingManager, Supervisor (own). GET also: StudentAffairs
+PATCH	/exams/{id}/publish	TrainingManager, Supervisor (own course)
+GET	/kpis	TrainingManager, Supervisor (own track), StudentAffairs
+POST	/kpis	Student
+PATCH	/kpis/{id}/review	TrainingManager, Supervisor (own track)
+GET	/notifications	All authenticated (own notifications)
+PATCH	/notifications/{id}/read	All authenticated
+
+
+
+16. Angular Module Map
+
+Angular 17+ uses standalone components with lazy-loaded routing. Each role has its own feature module/folder. The router loads components on demand based on the authenticated user's role claim.
+
+16.1  Route Structure
+Route	Module / Component
+/login	AuthModule → LoginComponent
+/dashboard	Shared → RoleDashboardComponent (redirects by role)
+/admin/**	TrainingManagerModule (canActivate: TrainingManagerGuard)
+/supervisor/**	SupervisorModule (canActivate: SupervisorGuard)
+/ta/**	TAModule (canActivate: TAGuard)
+/affairs/**	StudentAffairsModule (canActivate: StudentAffairsGuard)
+/student/**	StudentModule (canActivate: StudentGuard)
+
+16.2  Key Angular Services
+•AuthService — login, logout, token refresh, role extraction from JWT.
+•TrackService — CRUD for branches, intakes, tracks, groups.
+•CourseService — CRUD for courses; hours configuration.
+•GradeService — read/write grades; publish action.
+•AttendanceService — record sessions; fetch absence summaries.
+•AbsenceRequestService — submit and review requests.
+•ExamService — schedule exams; publish; corrective exam management.
+•KpiService — submit certificate/freelance KPIs; review.
+•NotificationService — fetch inbox; mark as read; real-time via SignalR (optional).
+•UserService — create/edit/deactivate user accounts.
+
+16.3  Angular Technical Stack
+•Angular 17+ — standalone components (no NgModule).
+•Signals — reactive state management.
+•loadComponent() — lazy-loaded routes.
+•inject() — dependency injection in functions and guards.
+•HTTP Interceptors — auto-attach JWT bearer token.
+•Route Guards — canActivate per role using role claim from token.
+•Reactive Forms — FormBuilder with validators.
+•Angular Material — UI component library.
+•ngx-file-upload or native File API — for KPI proof uploads.
+
+
+
+17. Implementation Roadmap
+
+Phase	Title	Deliverables
+Phase 1	Foundation	ASP.NET Identity + JWT. User model + roles. Angular routing + guards. Base UI layout per role. Branch / Intake / Track / Group CRUD.
+Phase 2	Tracks & Courses	Supervisor creates courses. Hour configuration. Course grading mode. TA assignment to groups. Student account creation (Student Affairs). Course table for students.
+Phase 3	Grades & Attendance	TA enters lab grades. Supervisor enters exam grades. Grade publish flow. Attendance recording (online + offline). Student grade and attendance views.
+Phase 4	Requests & KPIs	Absence request flow (student → supervisor). Certificate KPI submission + file upload. Freelance KPI with payment screenshot. KPI approval flow. Student Affairs KPI status view.
+Phase 5	Exams & Notifications	Exam scheduling. Corrective exam with targeted student list. Portal notification inbox. Exam date alerts. Grade publish notifications. KPI decision notifications.
+Phase 6	Admin & Polish	Training Manager full override access. Reports and analytics dashboard. User management (create/edit/deactivate). Mobile-responsive UI. Performance, security audit, UAT.
+
+
+
+ITI Branch Portal  ·  System Blueprint v1.0
+Built with ASP.NET Core + Angular 17+  ·  Role-Based Access Control

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>System Settings | ITI Branch Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "dark-crimson": "#901B20",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e9e8e7",
+                        "tertiary": "#901b20",
+                        "surface-bright": "#fbf9f9",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#021e2b",
+                        "primary-container": "#b03633",
+                        "outline": "#8c716e",
+                        "secondary-fixed-dim": "#b0cadc",
+                        "on-tertiary-fixed": "#410005",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#dfbfbc",
+                        "on-tertiary-fixed-variant": "#8b171d",
+                        "surface": "#fbf9f9",
+                        "primary": "#8f1d1e",
+                        "tertiary-container": "#b13435",
+                        "inverse-surface": "#303031",
+                        "on-primary-fixed": "#410003",
+                        "error-container": "#ffdad6",
+                        "surface-gray": "#EDEDED",
+                        "surface-container-low": "#f5f3f3",
+                        "primary-fixed": "#ffdad6",
+                        "background": "#fbf9f9",
+                        "surface-container-highest": "#e3e2e2",
+                        "secondary": "#496271",
+                        "surface-tint": "#ab3330",
+                        "pure-white": "#FFFFFF",
+                        "inverse-primary": "#ffb3ad",
+                        "tertiary-fixed-dim": "#ffb3ae",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#ffd4d0",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-surface": "#1b1c1c",
+                        "surface-variant": "#e3e2e2",
+                        "on-background": "#1b1c1c",
+                        "primary-fixed-dim": "#ffb3ad",
+                        "on-error": "#ffffff",
+                        "surface-container": "#efeded",
+                        "on-secondary-container": "#4d6675",
+                        "secondary-container": "#c9e3f5",
+                        "on-tertiary-container": "#ffd3d0",
+                        "on-primary-fixed-variant": "#8a1a1b",
+                        "on-surface-variant": "#58413f",
+                        "iti-red": "#B03633",
+                        "deep-navy": "#203947",
+                        "tertiary-fixed": "#ffdad7",
+                        "on-secondary-fixed-variant": "#314a58",
+                        "surface-dim": "#dbdad9",
+                        "secondary-fixed": "#cce6f8",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "sidebar-width": "280px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "title-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Montserrat"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Montserrat"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .settings-card {
+            background: #ffffff;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+        .custom-toggle:checked + .toggle-bg {
+            background-color: #B03633;
+        }
+        .custom-toggle:checked + .toggle-bg div {
+            transform: translateX(100%);
+        }
+        body {
+            background-color: #F8F9FA;
+            color: #1b1c1c;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-deep-navy shadow-2xl flex flex-col py-base z-50">
+<div class="px-6 py-8 flex flex-col gap-1">
+<h1 class="font-headline-md text-headline-md font-bold text-pure-white">ITI Portal</h1>
+<p class="font-label-md text-label-md text-surface-variant/60 uppercase tracking-widest">Branch Management</p>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center gap-4 px-4 py-3 text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 rounded-lg cursor-pointer active:scale-95 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 rounded-lg cursor-pointer active:scale-95 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">school</span>
+                Programs
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 rounded-lg cursor-pointer active:scale-95 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">groups</span>
+                Batches
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 rounded-lg cursor-pointer active:scale-95 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">badge</span>
+                Staff
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 rounded-lg cursor-pointer active:scale-95 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">person</span>
+                Students
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 rounded-lg cursor-pointer active:scale-95 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                Reports
+            </a>
+</nav>
+<div class="mt-auto px-3 pt-4 border-t border-white/10 space-y-1">
+<a class="flex items-center gap-4 px-4 py-3 border-l-4 border-primary bg-primary-container/20 text-pure-white font-bold rounded-r-lg cursor-pointer active:scale-95 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">settings</span>
+                System Settings
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 rounded-lg cursor-pointer font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">help</span>
+                Help Center
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-iti-red hover:bg-iti-red/5 transition-colors duration-200 rounded-lg cursor-pointer font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-[280px] min-h-screen pb-32">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-280px)] h-16 glass-nav flex justify-between items-center px-gutter z-40">
+<div class="flex items-center gap-8">
+<h2 class="font-headline-md text-headline-md font-extrabold text-primary">System Settings</h2>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-secondary hover:text-primary font-body-md text-body-md transition-all" href="#">Schedules</a>
+<a class="text-secondary hover:text-primary font-body-md text-body-md transition-all" href="#">Attendance</a>
+<a class="text-secondary hover:text-primary font-body-md text-body-md transition-all" href="#">Grades</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined p-2 text-secondary hover:bg-surface-container-low rounded-lg transition-all cursor-pointer">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-iti-red rounded-full ring-2 ring-white"></span>
+</div>
+<span class="material-symbols-outlined p-2 text-secondary hover:bg-surface-container-low rounded-lg transition-all cursor-pointer">settings</span>
+<div class="h-8 w-[1px] bg-surface-gray mx-2"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right">
+<p class="font-label-md text-label-md font-bold">Admin User</p>
+<p class="text-[10px] text-secondary">Branch Head</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary-container shadow-sm object-cover" data-alt="A professional close-up headshot of a corporate administrator in business attire, clean lighting, blurred academic office background, high quality photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgqVwCl_l_QhOLk199h1ILQ2aW2SXNpEB00b4zgJ8ixvcC7ZqUOlfiN48M6ML7I4Z6ct4FdleSACJmgevToIytl9wbsZ9NW0gkXi486mYlDccZD9k-nWSqrszJy1IBOJIRLLXv5vEazkha6DfjI6Q-UOetUeOJI8_RKZWIptGCiC85UrP6EjzAtfvy0QTHKiThJ-UcPC8Q9lDOQffA0UTZ2EtljRWn_UEs1rTaB1GljBdCgvNGP5fyMV97xza5bGeQ6rnrAI-1_gTc"/>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="pt-24 px-gutter max-w-6xl mx-auto space-y-8">
+<!-- Section: General Settings -->
+<section class="settings-card rounded-xl p-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-iti-red text-3xl">tune</span>
+<h3 class="font-title-lg text-title-lg">General Settings</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Portal Name</label>
+<input class="w-full px-4 py-3 rounded-lg border border-surface-gray focus:border-iti-red focus:ring-2 focus:ring-iti-red/10 outline-none transition-all" type="text" value="ITI Branch Portal - Cairo South"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">System Language</label>
+<select class="w-full px-4 py-3 rounded-lg border border-surface-gray focus:border-iti-red focus:ring-2 focus:ring-iti-red/10 outline-none transition-all bg-white">
+<option>English (United States)</option>
+<option>Arabic (Egypt)</option>
+<option>French (International)</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Timezone</label>
+<select class="w-full px-4 py-3 rounded-lg border border-surface-gray focus:border-iti-red focus:ring-2 focus:ring-iti-red/10 outline-none transition-all bg-white">
+<option>(GMT+02:00) Cairo</option>
+<option>(GMT+00:00) London</option>
+<option>(GMT-05:00) New York</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Maintenance Mode</label>
+<div class="flex items-center justify-between p-3 border border-surface-gray rounded-lg bg-surface-container-low">
+<span class="text-body-md">Disable public access</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only custom-toggle" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest rounded-full toggle-bg transition-colors">
+<div class="absolute left-[2px] top-[2px] bg-white border border-gray-300 rounded-full h-5 w-5 transition-transform"></div>
+</div>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Branch Configurations -->
+<section class="settings-card rounded-xl p-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-iti-red text-3xl">domain</span>
+<h3 class="font-title-lg text-title-lg">Branch Configurations</h3>
+</div>
+<div class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="col-span-1 md:col-span-2 space-y-2">
+<label class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Physical Address</label>
+<textarea class="w-full px-4 py-3 rounded-lg border border-surface-gray focus:border-iti-red focus:ring-2 focus:ring-iti-red/10 outline-none transition-all" rows="2">Smart Village, Building B121, Cairo-Alexandria Desert Road, Giza, Egypt</textarea>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Branch Capacity</label>
+<div class="relative">
+<input class="w-full px-4 py-3 rounded-lg border border-surface-gray focus:border-iti-red focus:ring-2 focus:ring-iti-red/10 outline-none transition-all" type="number" value="1200"/>
+<span class="absolute right-4 top-3.5 text-secondary text-sm">Seats</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-4 pt-2">
+<div class="flex items-center gap-3 p-4 border border-surface-gray rounded-lg bg-white min-w-[200px]">
+<span class="material-symbols-outlined text-secondary">wifi</span>
+<div class="flex-1">
+<p class="font-label-md text-label-md font-bold">Public Wi-Fi</p>
+<p class="text-[10px] text-secondary">Campus-wide</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only custom-toggle" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest rounded-full toggle-bg transition-colors">
+<div class="absolute left-[2px] top-[2px] bg-white border border-gray-300 rounded-full h-5 w-5 transition-transform"></div>
+</div>
+</label>
+</div>
+<div class="flex items-center gap-3 p-4 border border-surface-gray rounded-lg bg-white min-w-[200px]">
+<span class="material-symbols-outlined text-secondary">door_front</span>
+<div class="flex-1">
+<p class="font-label-md text-label-md font-bold">Bio-Metric Entry</p>
+<p class="text-[10px] text-secondary">Staff & Student</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only custom-toggle" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest rounded-full toggle-bg transition-colors">
+<div class="absolute left-[2px] top-[2px] bg-white border border-gray-300 rounded-full h-5 w-5 transition-transform"></div>
+</div>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Notification Preferences -->
+<section class="settings-card rounded-xl p-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-iti-red text-3xl">notifications_active</span>
+<h3 class="font-title-lg text-title-lg">Notification Preferences</h3>
+</div>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-center justify-between py-4 border-b border-surface-gray">
+<div>
+<p class="font-body-lg font-semibold">Email Alerts</p>
+<p class="text-secondary text-sm">Send daily summaries and critical system alerts to administrator email.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only custom-toggle" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest rounded-full toggle-bg transition-colors">
+<div class="absolute left-[2px] top-[2px] bg-white border border-gray-300 rounded-full h-5 w-5 transition-transform"></div>
+</div>
+</label>
+</div>
+<div class="flex items-center justify-between py-4 border-b border-surface-gray">
+<div>
+<p class="font-body-lg font-semibold">SMS Notifications</p>
+<p class="text-secondary text-sm">Notify staff via SMS for emergency cancellations or schedule shifts.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only custom-toggle" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest rounded-full toggle-bg transition-colors">
+<div class="absolute left-[2px] top-[2px] bg-white border border-gray-300 rounded-full h-5 w-5 transition-transform"></div>
+</div>
+</label>
+</div>
+<div class="flex items-center justify-between py-4">
+<div>
+<p class="font-body-lg font-semibold">Browser Push</p>
+<p class="text-secondary text-sm">Real-time desktop notifications for in-portal activities.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only custom-toggle" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest rounded-full toggle-bg transition-colors">
+<div class="absolute left-[2px] top-[2px] bg-white border border-gray-300 rounded-full h-5 w-5 transition-transform"></div>
+</div>
+</label>
+</div>
+</div>
+</section>
+<!-- Section: User Access Control -->
+<section class="settings-card rounded-xl p-8 mb-12">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-iti-red text-3xl">lock_person</span>
+<h3 class="font-title-lg text-title-lg">User Access Control</h3>
+</div>
+<button class="bg-deep-navy text-pure-white px-4 py-2 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:bg-opacity-90 transition-all">
+<span class="material-symbols-outlined text-sm">add</span> Add Role
+                    </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low text-secondary font-label-sm text-label-sm uppercase tracking-wider">
+<th class="px-6 py-4">Role Name</th>
+<th class="px-6 py-4">Members</th>
+<th class="px-6 py-4">Permissions</th>
+<th class="px-6 py-4">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-gray">
+<tr>
+<td class="px-6 py-4">
+<span class="font-bold">Branch Administrator</span>
+</td>
+<td class="px-6 py-4">4 Users</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs">Full Access</span>
+</td>
+<td class="px-6 py-4">
+<button class="text-secondary hover:text-iti-red transition-colors"><span class="material-symbols-outlined">edit</span></button>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4">
+<span class="font-bold">Staff Coordinator</span>
+</td>
+<td class="px-6 py-4">12 Users</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">Limited Write</span>
+</td>
+<td class="px-6 py-4">
+<button class="text-secondary hover:text-iti-red transition-colors"><span class="material-symbols-outlined">edit</span></button>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4">
+<span class="font-bold">Finance Auditor</span>
+</td>
+<td class="px-6 py-4">2 Users</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-amber-100 text-amber-700 rounded text-xs">Read Only</span>
+</td>
+<td class="px-6 py-4">
+<button class="text-secondary hover:text-iti-red transition-colors"><span class="material-symbols-outlined">edit</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Fixed Save Changes Action Bar -->
+<div class="fixed bottom-0 right-0 w-[calc(100%-280px)] glass-nav h-20 px-gutter flex items-center justify-between z-50 border-t border-surface-gray/50">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-sm">info</span>
+<p class="text-sm">Last saved: Today at 09:42 AM</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-6 py-2.5 rounded-lg border border-surface-gray text-secondary hover:bg-surface-container-low transition-all font-body-md font-semibold">Discard Changes</button>
+<button class="px-8 py-2.5 rounded-lg bg-iti-red text-pure-white shadow-lg shadow-iti-red/20 hover:bg-dark-crimson hover:-translate-y-0.5 transition-all font-body-md font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined">save</span>
+                    Save Changes
+                </button>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interactions for inputs
+        document.querySelectorAll('input, select, textarea').forEach(el => {
+            el.addEventListener('focus', () => {
+                el.parentElement.classList.add('scale-[1.01]');
+            });
+            el.addEventListener('blur', () => {
+                el.parentElement.classList.remove('scale-[1.01]');
+            });
+        });
+
+        // Simple state management for Save Bar
+        const inputs = document.querySelectorAll('input, select, textarea');
+        const saveBar = document.querySelector('.fixed.bottom-0');
+        
+        inputs.forEach(input => {
+            input.addEventListener('change', () => {
+                saveBar.classList.add('bg-white');
+                saveBar.classList.remove('glass-nav');
+                // Could add an animation here
+            });
+        });
+    </script>
+</body></html>
