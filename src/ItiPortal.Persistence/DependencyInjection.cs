@@ -1,4 +1,6 @@
+using ItiPortal.Application.Auth;
 using ItiPortal.Domain.Entities;
+using ItiPortal.Persistence.Auth;
 using ItiPortal.Persistence.Interceptors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +34,9 @@ public static class DependencyInjection
             .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
+
+        services.AddScoped<IRefreshTokenStore, RefreshTokenStore>();
+        services.AddScoped<IClaimsLookup, ClaimsLookup>();
 
         return services;
     }
