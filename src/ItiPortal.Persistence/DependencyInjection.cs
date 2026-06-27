@@ -42,6 +42,7 @@ public static class DependencyInjection
         services.AddScoped<ItiPortal.Application.Org.IIntakeService, ItiPortal.Persistence.Org.IntakeService>();
         services.AddScoped<ItiPortal.Application.Academic.ITrackService, ItiPortal.Persistence.Academic.TrackService>();
         services.AddScoped<ItiPortal.Application.Academic.ICourseService, ItiPortal.Persistence.Academic.CourseService>();
+        services.AddScoped<ItiPortal.Application.Groups.IGroupService, ItiPortal.Persistence.Groups.GroupService>();
 
         return services;
     }
