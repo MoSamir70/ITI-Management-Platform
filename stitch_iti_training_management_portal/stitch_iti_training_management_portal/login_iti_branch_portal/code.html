@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ITI Branch Portal - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Montserrat:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "pure-white": "#FFFFFF",
+                        "surface-gray": "#EDEDED",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f5f3f3",
+                        "on-tertiary-container": "#ffd3d0",
+                        "dark-crimson": "#901B20",
+                        "primary-fixed": "#ffdad6",
+                        "secondary-container": "#c9e3f5",
+                        "inverse-surface": "#303031",
+                        "on-secondary-fixed": "#021e2b",
+                        "tertiary-fixed": "#ffdad7",
+                        "tertiary-fixed-dim": "#ffb3ae",
+                        "secondary-fixed": "#cce6f8",
+                        "surface-container-high": "#e9e8e7",
+                        "on-tertiary-fixed-variant": "#8b171d",
+                        "primary": "#8f1d1e",
+                        "tertiary-container": "#b13435",
+                        "inverse-primary": "#ffb3ad",
+                        "surface-dim": "#dbdad9",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#314a58",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#ffd4d0",
+                        "error": "#ba1a1a",
+                        "primary-container": "#b03633",
+                        "inverse-on-surface": "#f2f0f0",
+                        "surface-variant": "#e3e2e2",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#ffb3ad",
+                        "on-tertiary-fixed": "#410005",
+                        "deep-navy": "#203947",
+                        "on-surface": "#1b1c1c",
+                        "surface-container": "#efeded",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#fbf9f9",
+                        "secondary-fixed-dim": "#b0cadc",
+                        "surface-container-lowest": "#ffffff",
+                        "iti-red": "#B03633",
+                        "on-background": "#1b1c1c",
+                        "surface": "#fbf9f9",
+                        "outline-variant": "#dfbfbc",
+                        "outline": "#8c716e",
+                        "tertiary": "#901b20",
+                        "on-primary-fixed-variant": "#8a1a1b",
+                        "surface-container-highest": "#e3e2e2",
+                        "on-surface-variant": "#58413f",
+                        "background": "#fbf9f9",
+                        "surface-tint": "#ab3330",
+                        "on-primary-fixed": "#410003",
+                        "secondary": "#496271",
+                        "on-secondary-container": "#4d6675"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "sidebar-width": "280px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-md": ["Montserrat"],
+                        "label-sm": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(237, 237, 237, 0.5);
+        }
+        .bg-pattern {
+            background-color: #fbf9f9;
+            background-image: radial-gradient(#b03633 0.5px, transparent 0.5px), radial-gradient(#b03633 0.5px, #fbf9f9 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            opacity: 0.03;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex items-center justify-center font-body-md overflow-x-hidden">
+<!-- Ambient Background Elements -->
+<div class="fixed inset-0 z-0">
+<div class="absolute inset-0 bg-pattern"></div>
+<!-- Blurred background image -->
+<div class="absolute inset-0 opacity-10 bg-cover bg-center grayscale scale-110 blur-xl" data-alt="A wide, cinematic interior shot of a world-class digital campus hallway with clean architectural lines, minimalist glass partitions, and soft atmospheric lighting. The environment is professional and academic, featuring a neutral color palette with subtle hints of ITI red. The mood is high-tech, prestigious, and extremely focused, suggesting a center of educational excellence." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB287tPtAnEiEenCkVbQhDKbrS5Gxokj_VHoxwJHrt0l4LVR-6212zo6EE3qcb4_k_BGuwQ4gs4miT423219MgJRoQ6FoRAZMUPx7YOtqQtALAB1MVWp2n1FuBfNPl8CPuZY2pl0PY9uuuBY__o19sjAFmKfaSCcqcXvxeilGxW3vzbHfPpZBXAwO2QVOck17rBeD_-T5CHf3y4L8XkYxY7UMubKawOTsW_HvleVNPZvnn6JDs8CSJdDNKO284aJjlh15T15iefg7Rs')">
+</div>
+<!-- Decorative Gradient Blobs -->
+<div class="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-iti-red/5 rounded-full blur-[120px] animate-pulse"></div>
+<div class="absolute bottom-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-deep-navy/5 rounded-full blur-[120px]"></div>
+</div>
+<!-- Login Container -->
+<main class="relative z-10 w-full max-w-[1200px] px-margin-mobile md:px-margin-desktop flex flex-col lg:flex-row items-center justify-between gap-12">
+<!-- Left Side: Branding/Context -->
+<div class="hidden lg:flex flex-col max-w-lg space-y-6">
+<div class="flex items-center space-x-4">
+<img alt="ITI Logo" class="h-20 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7fFbaaLX3moQVIfa4MCeSmtAk0A7OiAjxXpQuLEI2q2AhBBj0SvFmXM99ey8DQxBzaYbvQDYSqlnotfcWXsRKm1HVSf7SKbZinCCg-GcIqRlNT4pFoo188QXSIwlA0N99OiwUMuSO_NtMDNDlRH4bLR0LI6UVBZ-9b9VJ7UOkYtrlVqBiLvdYpgOm_St7X-UrifNvBdrUC3AZO1QhQkstFREsXNlzfhGPDmdPQM5CxzHTXlU84z2WiHemzLhqBwwJeRIlOMYJHVap"/>
+<div class="h-12 w-[1px] bg-surface-gray"></div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-primary tracking-tight">ITI Portal</span>
+<span class="font-label-md text-label-md text-secondary tracking-widest uppercase">Branch Management</span>
+</div>
+</div>
+<div class="space-y-4">
+<h1 class="font-display-lg text-display-lg text-deep-navy leading-tight">Empowering the next generation of <span class="text-iti-red">technical excellence.</span></h1>
+<p class="font-body-lg text-body-lg text-secondary max-w-md">
+                    Secure access to the Integrated Technology Institute's branch administrative dashboard. Manage schedules, student data, and academic reports with precision.
+                </p>
+</div>
+<div class="flex items-center gap-6 pt-4">
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-deep-navy">50+</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase">Active Branches</span>
+</div>
+<div class="w-[1px] h-8 bg-surface-gray"></div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-deep-navy">12k</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase">Staff Members</span>
+</div>
+</div>
+</div>
+<!-- Right Side: Login Card -->
+<div class="w-full max-w-[440px] animate-in fade-in slide-in-from-bottom-4 duration-1000">
+<!-- Mobile Logo Only (hidden on desktop) -->
+<div class="lg:hidden flex flex-col items-center mb-8 text-center">
+<img alt="ITI Logo" class="h-16 w-auto mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2TAfrKIFpW8L_N5MFiU9sIFO2N-oOaSiyeh3BidycNx556yRFoLO6n1Alw_b6BqRgaqpuqKKqeEAJDN11eU5zKkOVTPQGUtnGwcBle-00mYONvcUB68mldHSlQhSeLQayQjAJwm6xYUdwYqSSG4-kntoNVDldBFT_W2FgR0xcSIUjYADRdaUyCOeuRQECSQuOHfwiV-Dw3IDl1Lld1c7yGwv9M5Va49WmPmYhQp91l1jtKxfVakVFBgEXDIzx3av4MZCSsIFEETyO"/>
+<h2 class="font-headline-md text-headline-md text-primary">ITI Branch Portal</h2>
+</div>
+<div class="glass-card rounded-xl shadow-2xl p-8 md:p-10">
+<div class="mb-8">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Welcome Back</h3>
+<p class="font-body-md text-body-md text-secondary">Please enter your credentials to access the portal.</p>
+</div>
+<form class="space-y-6" onsubmit="return false;">
+<!-- Email Field -->
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block" for="email">Email Address</label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-secondary group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="mail">mail</span>
+</div>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-bright border border-surface-gray rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-iti-red outline-none transition-all font-body-md text-on-surface" id="email" name="email" placeholder="name@branch.iti.edu" required="" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider" for="password">Password</label>
+<a class="font-label-sm text-label-sm text-primary hover:text-dark-crimson transition-colors" href="#">Forgot Password?</a>
+</div>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-secondary group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="lock">lock</span>
+</div>
+<input class="w-full pl-10 pr-10 py-3 bg-surface-bright border border-surface-gray rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-iti-red outline-none transition-all font-body-md text-on-surface" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute inset-y-0 right-0 pr-3 flex items-center text-secondary hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<!-- Remember Me Toggle -->
+<div class="flex items-center">
+<div class="relative inline-flex items-center cursor-pointer group">
+<input class="sr-only peer" id="remember" type="checkbox"/>
+<div class="w-10 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-iti-red"></div>
+<label class="ms-3 font-label-md text-label-md text-secondary group-hover:text-on-surface transition-colors cursor-pointer" for="remember">Remember this device</label>
+</div>
+</div>
+<!-- Sign In Button -->
+<button class="w-full py-4 bg-iti-red text-pure-white font-headline-md text-[16px] rounded-lg shadow-lg shadow-iti-red/20 hover:bg-dark-crimson hover:shadow-xl hover:shadow-iti-red/30 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2" type="submit">
+                        Sign In to Portal
+                        <span class="material-symbols-outlined text-[20px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</form>
+<!-- Footer Actions -->
+<div class="mt-8 pt-8 border-t border-surface-gray/50 flex flex-col items-center space-y-4">
+<p class="font-label-md text-label-md text-secondary">Need technical assistance?</p>
+<a class="flex items-center gap-2 px-6 py-2 border border-surface-gray rounded-full font-label-sm text-label-sm text-deep-navy hover:bg-surface-gray transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="support_agent">support_agent</span>
+                        Contact Branch Support
+                    </a>
+</div>
+</div>
+<!-- Bottom Legal/Version -->
+<div class="mt-6 flex justify-between items-center px-2">
+<span class="font-label-sm text-label-sm text-secondary/60">v4.2.0 Enterprise</span>
+<div class="flex gap-4">
+<a class="font-label-sm text-label-sm text-secondary/60 hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="font-label-sm text-label-sm text-secondary/60 hover:text-primary transition-colors" href="#">Terms</a>
+</div>
+</div>
+</div>
+</main>
+<!-- Micro-interaction script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const formInputs = document.querySelectorAll('input');
+            formInputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    input.parentElement.classList.add('scale-[1.01]');
+                });
+                input.addEventListener('blur', () => {
+                    input.parentElement.classList.remove('scale-[1.01]');
+                });
+            });
+
+            // Toggle Password Visibility
+            const togglePass = document.querySelector('button[type="button"]');
+            const passInput = document.getElementById('password');
+            togglePass.addEventListener('click', () => {
+                const isPass = passInput.type === 'password';
+                passInput.type = isPass ? 'text' : 'password';
+                togglePass.querySelector('span').innerText = isPass ? 'visibility_off' : 'visibility';
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Training Manager Dashboard | ITI Branch Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Montserrat:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "pure-white": "#FFFFFF",
+                "surface-gray": "#EDEDED",
+                "on-error": "#ffffff",
+                "surface-container-low": "#f5f3f3",
+                "on-tertiary-container": "#ffd3d0",
+                "dark-crimson": "#901B20",
+                "primary-fixed": "#ffdad6",
+                "secondary-container": "#c9e3f5",
+                "inverse-surface": "#303031",
+                "on-secondary-fixed": "#021e2b",
+                "tertiary-fixed": "#ffdad7",
+                "tertiary-fixed-dim": "#ffb3ae",
+                "secondary-fixed": "#cce6f8",
+                "surface-container-high": "#e9e8e7",
+                "on-tertiary-fixed-variant": "#8b171d",
+                "primary": "#8f1d1e",
+                "tertiary-container": "#b13435",
+                "inverse-primary": "#ffb3ad",
+                "surface-dim": "#dbdad9",
+                "on-secondary": "#ffffff",
+                "error-container": "#ffdad6",
+                "on-secondary-fixed-variant": "#314a58",
+                "on-tertiary": "#ffffff",
+                "on-primary-container": "#ffd4d0",
+                "error": "#ba1a1a",
+                "primary-container": "#b03633",
+                "inverse-on-surface": "#f2f0f0",
+                "surface-variant": "#e3e2e2",
+                "on-error-container": "#93000a",
+                "primary-fixed-dim": "#ffb3ad",
+                "on-tertiary-fixed": "#410005",
+                "deep-navy": "#203947",
+                "on-surface": "#1b1c1c",
+                "surface-container": "#efeded",
+                "on-primary": "#ffffff",
+                "surface-bright": "#fbf9f9",
+                "secondary-fixed-dim": "#b0cadc",
+                "surface-container-lowest": "#ffffff",
+                "iti-red": "#B03633",
+                "on-background": "#1b1c1c",
+                "surface": "#fbf9f9",
+                "outline-variant": "#dfbfbc",
+                "outline": "#8c716e",
+                "tertiary": "#901b20",
+                "on-primary-fixed-variant": "#8a1a1b",
+                "surface-container-highest": "#e3e2e2",
+                "on-surface-variant": "#58413f",
+                "background": "#fbf9f9",
+                "surface-tint": "#ab3330",
+                "on-primary-fixed": "#410003",
+                "secondary": "#496271",
+                "on-secondary-container": "#4d6675"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+              "spacing": {
+                "gutter": "24px",
+                "margin-desktop": "32px",
+                "margin-mobile": "16px",
+                "base": "8px",
+                "sidebar-width": "280px"
+              },
+              "fontFamily": {
+                "label-md": ["Inter"],
+                "headline-md": ["Montserrat"],
+                "label-sm": ["Inter"],
+                "title-lg": ["Inter"],
+                "headline-lg-mobile": ["Montserrat"],
+                "display-lg": ["Montserrat"],
+                "headline-lg": ["Montserrat"],
+                "body-md": ["Inter"],
+                "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .card-shadow {
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .chart-gradient {
+            background: linear-gradient(180deg, rgba(176, 54, 51, 0.1) 0%, rgba(176, 54, 51, 0) 100%);
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-surface antialiased overflow-x-hidden">
+<!-- SideNavBar Anchor -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-deep-navy shadow-2xl flex flex-col py-base z-50">
+<div class="px-6 py-8">
+<h1 class="font-headline-md text-headline-md font-bold text-pure-white flex items-center gap-3">
+<div class="w-10 h-10 bg-iti-red rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+                ITI Portal
+            </h1>
+<p class="text-surface-variant/50 text-label-md font-label-md mt-1 uppercase tracking-widest">Branch Management</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<!-- Active Tab: Dashboard -->
+<div class="flex items-center gap-4 px-4 py-3 rounded-lg border-l-4 border-primary bg-primary-container/20 text-pure-white font-bold cursor-pointer active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-label-md text-label-md">Programs</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-label-md text-label-md">Batches</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+<span class="font-label-md text-label-md">Staff</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md">Students</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</div>
+</nav>
+<div class="mt-auto px-4 pb-8 space-y-1">
+<div class="px-4 py-3 text-iti-red font-bold flex items-center gap-4 hover:bg-white/5 transition-all rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">System Settings</span>
+</div>
+<hr class="border-white/10 my-4"/>
+<div class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Help Center</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Wrapper -->
+<main class="ml-[280px] min-h-screen flex flex-col">
+<!-- TopNavBar Anchor -->
+<header class="fixed top-0 right-0 w-[calc(100%-280px)] h-16 glass-nav flex justify-between items-center px-gutter z-40">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-extrabold text-primary">ITI Branch Portal</span>
+<div class="relative group">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center text-secondary">
+<span class="material-symbols-outlined text-sm">search</span>
+</span>
+<input class="pl-10 pr-4 py-1.5 bg-surface-container-low border-none rounded-lg focus:ring-1 focus:ring-iti-red w-64 transition-all text-body-md" placeholder="Search data, files, tracks..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<nav class="flex gap-6">
+<a class="text-primary border-b-2 border-primary font-bold pb-1 font-body-md text-body-md" href="#">Schedules</a>
+<a class="text-secondary hover:text-primary transition-all font-body-md text-body-md" href="#">Attendance</a>
+<a class="text-secondary hover:text-primary transition-all font-body-md text-body-md" href="#">Grades</a>
+</nav>
+<div class="flex items-center gap-4 border-l border-surface-gray pl-6">
+<button class="p-2 text-secondary hover:bg-surface-container-low rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-secondary hover:bg-surface-container-low rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="flex items-center gap-3 ml-2 hover:bg-surface-container-low p-1.5 rounded-xl cursor-pointer transition-all">
+<div class="text-right hidden xl:block">
+<p class="font-label-sm text-label-sm text-on-surface">Ahmed Salem</p>
+<p class="text-[10px] text-secondary uppercase tracking-wider">Training Manager</p>
+</div>
+<img class="w-9 h-9 rounded-full object-cover border border-surface-gray" data-alt="A professional headshot of a middle-aged male executive with a warm, confident expression. He is wearing a dark navy corporate suit and is set against a clean, minimalist white background. The lighting is soft and studio-quality, emphasizing a professional and trustworthy institutional persona suitable for a high-level government academy official." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8yQeLx35xwUu8Mqr7c7QcOGxCLp6Gl9ct8AT-tFGCvuWCdaFCDxzyFsP3Jfw4sQKcViZEG8dNKHBaULCIcZtDBP0a9fT2GsnNu34HrEgXprrUXXzUy82Jx_iRqA82on47K67Mw7gTdOZNilPk6LgKrPlPOpHncroFgWR2IG3m2pN9psFiS1nhZdz_0swUcrII4NtzTjQmp_BNCbqeqTxw9mbKKxdVPXwHlMJD35fKaa0YMIp8y1WMNGkniZ1MIFIpctpDqsUP6w1N"/>
+</div>
+<button class="bg-iti-red text-pure-white px-5 py-2 rounded-lg font-label-md text-label-md font-bold hover:bg-dark-crimson transition-all shadow-lg shadow-iti-red/20">
+                        Create New
+                    </button>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="mt-16 p-gutter flex flex-col gap-8 flex-1">
+<!-- Hero Header -->
+<section class="relative overflow-hidden rounded-xl bg-deep-navy p-10 flex items-center min-h-[220px]">
+
+<div class="relative z-10 w-full flex justify-between items-center">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-pure-white mb-2">Welcome Back, Manager</h2>
+<p class="text-surface-variant/80 text-body-lg font-body-lg max-w-xl">
+                            Cairo Smart Village branch is currently operating at <span class="text-iti-red font-bold">92% capacity</span>. All systems are online with 14 active tracks today.
+                        </p>
+<div class="mt-6 flex gap-4">
+<div class="px-4 py-2 bg-white/10 backdrop-blur-md rounded-lg flex items-center gap-3">
+<span class="material-symbols-outlined text-green-400">check_circle</span>
+<span class="text-pure-white text-label-md">Branch Status: Normal</span>
+</div>
+<div class="px-4 py-2 bg-white/10 backdrop-blur-md rounded-lg flex items-center gap-3">
+<span class="material-symbols-outlined text-yellow-400">event</span>
+<span class="text-pure-white text-label-md">Q4 Intake Prep Active</span>
+</div>
+</div>
+</div>
+<div class="hidden lg:block">
+<div class="bg-pure-white p-6 rounded-2xl card-shadow w-64 text-center">
+<p class="text-secondary font-label-sm text-label-sm uppercase mb-1">Branch KPI Score</p>
+<p class="font-display-lg text-display-lg text-primary">8.4</p>
+<div class="w-full h-2 bg-surface-gray rounded-full mt-4 overflow-hidden">
+<div class="w-[84%] h-full bg-iti-red"></div>
+</div>
+<p class="text-label-sm text-label-sm text-secondary mt-2">+0.2 from last month</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Layout Grid -->
+<div class="grid grid-cols-12 gap-8 items-start">
+<!-- Center Content Column (8 cols) -->
+<div class="col-span-12 lg:col-span-9 space-y-8">
+<!-- Stats Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+<div class="bg-pure-white p-6 rounded-xl card-shadow group hover:bg-primary transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 rounded-lg bg-surface-container-low group-hover:bg-white/20 transition-all">
+<span class="material-symbols-outlined text-primary group-hover:text-pure-white" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<span class="text-green-500 font-bold text-label-sm">+12%</span>
+</div>
+<p class="text-secondary group-hover:text-white/70 font-label-md text-label-md uppercase tracking-wide">Active Students</p>
+<p class="text-headline-md font-headline-md text-on-surface group-hover:text-pure-white">1,248</p>
+</div>
+<div class="bg-pure-white p-6 rounded-xl card-shadow group hover:bg-deep-navy transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 rounded-lg bg-surface-container-low group-hover:bg-white/20 transition-all">
+<span class="material-symbols-outlined text-primary group-hover:text-pure-white" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+</div>
+<span class="text-primary-fixed-dim font-bold text-label-sm">Peak</span>
+</div>
+<p class="text-secondary group-hover:text-white/70 font-label-md text-label-md uppercase tracking-wide">Current Intakes</p>
+<p class="text-headline-md font-headline-md text-on-surface group-hover:text-pure-white">3 Active</p>
+</div>
+<div class="bg-pure-white p-6 rounded-xl card-shadow group hover:bg-primary transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 rounded-lg bg-surface-container-low group-hover:bg-white/20 transition-all">
+<span class="material-symbols-outlined text-primary group-hover:text-pure-white" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</div>
+<span class="text-green-500 font-bold text-label-sm">100%</span>
+</div>
+<p class="text-secondary group-hover:text-white/70 font-label-md text-label-md uppercase tracking-wide">Tracks Running</p>
+<p class="text-headline-md font-headline-md text-on-surface group-hover:text-pure-white">42 Tracks</p>
+</div>
+<div class="bg-pure-white p-6 rounded-xl card-shadow border-t-4 border-iti-red">
+<div class="flex justify-between items-center mb-4">
+<p class="text-secondary font-label-md text-label-md uppercase tracking-wide">Branch Score</p>
+<span class="material-symbols-outlined text-iti-red">trending_up</span>
+</div>
+<p class="text-headline-md font-headline-md text-iti-red">8.4 / 10</p>
+<div class="w-full h-1.5 bg-surface-gray rounded-full mt-4">
+<div class="w-[84%] h-full bg-iti-red rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Analytics Section -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+<div class="bg-pure-white p-8 rounded-xl card-shadow">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-title-lg text-title-lg text-on-surface">Enrollment Trends</h3>
+<select class="text-label-sm border-surface-gray rounded-lg bg-surface-bright">
+<option>Last 6 Months</option>
+<option>Last Year</option>
+</select>
+</div>
+<div class="h-64 relative">
+<!-- Simulated Chart Visual -->
+<div class="absolute inset-0 flex items-end justify-between gap-4">
+<div class="w-full bg-surface-container-low rounded-t-lg h-[40%] transition-all hover:h-[50%] hover:bg-iti-red/20 relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-deep-navy text-white text-[10px] px-2 py-1 rounded hidden group-hover:block">240</div>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-lg h-[65%] transition-all hover:h-[75%] hover:bg-iti-red/20 relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-deep-navy text-white text-[10px] px-2 py-1 rounded hidden group-hover:block">380</div>
+</div>
+<div class="w-full bg-iti-red rounded-t-lg h-[85%] relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-deep-navy text-white text-[10px] px-2 py-1 rounded hidden group-hover:block">510</div>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-lg h-[55%] transition-all hover:h-[65%] hover:bg-iti-red/20 relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-deep-navy text-white text-[10px] px-2 py-1 rounded hidden group-hover:block">310</div>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-lg h-[70%] transition-all hover:h-[80%] hover:bg-iti-red/20 relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-deep-navy text-white text-[10px] px-2 py-1 rounded hidden group-hover:block">420</div>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-lg h-[95%] transition-all hover:h-[100%] hover:bg-iti-red/20 relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-deep-navy text-white text-[10px] px-2 py-1 rounded hidden group-hover:block">580</div>
+</div>
+</div>
+</div>
+<div class="flex justify-between mt-4 text-label-sm text-secondary">
+<span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+</div>
+</div>
+<div class="bg-pure-white p-8 rounded-xl card-shadow">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-8">Track Distribution</h3>
+<div class="flex items-center gap-10">
+<div class="relative w-48 h-48 rounded-full border-[16px] border-surface-container-low flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-[16px] border-iti-red border-t-transparent border-l-transparent rotate-45"></div>
+<div class="text-center">
+<p class="font-display-lg text-[24px] text-on-surface">14</p>
+<p class="text-[10px] text-secondary uppercase">Web Dev</p>
+</div>
+</div>
+<ul class="space-y-4 flex-1">
+<li class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-iti-red"></div>
+<span class="text-body-md text-secondary">Web Development</span>
+</div>
+<span class="font-bold">45%</span>
+</li>
+<li class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-deep-navy"></div>
+<span class="text-body-md text-secondary">Data Science</span>
+</div>
+<span class="font-bold">30%</span>
+</li>
+<li class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+<span class="text-body-md text-secondary">Cyber Security</span>
+</div>
+<span class="font-bold">25%</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Active Intakes Table -->
+<div class="bg-pure-white rounded-xl card-shadow overflow-hidden">
+<div class="px-8 py-6 border-b border-surface-gray flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg text-on-surface">Active Intakes</h3>
+<button class="text-primary font-bold text-label-md flex items-center gap-1">View All <span class="material-symbols-outlined text-sm">arrow_forward</span></button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-bright">
+<tr>
+<th class="px-8 py-4 font-label-sm text-label-sm text-secondary uppercase">Intake Name</th>
+<th class="px-8 py-4 font-label-sm text-label-sm text-secondary uppercase">Start Date</th>
+<th class="px-8 py-4 font-label-sm text-label-sm text-secondary uppercase">End Date</th>
+<th class="px-8 py-4 font-label-sm text-label-sm text-secondary uppercase">Status</th>
+<th class="px-8 py-4 font-label-sm text-label-sm text-secondary uppercase">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-gray">
+<tr class="hover:bg-surface-container-low transition-all">
+<td class="px-8 py-5">
+<p class="font-bold text-on-surface">Intake 44 - Intensive Training</p>
+<p class="text-xs text-secondary">Cohort B (Morning)</p>
+</td>
+<td class="px-8 py-5 text-body-md text-secondary">Oct 15, 2023</td>
+<td class="px-8 py-5 text-body-md text-secondary">Jun 30, 2024</td>
+<td class="px-8 py-5">
+<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-[11px] font-bold">IN PROGRESS</span>
+</td>
+<td class="px-8 py-5">
+<button class="p-2 text-secondary hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-all">
+<td class="px-8 py-5">
+<p class="font-bold text-on-surface">Professional Training Program</p>
+<p class="text-xs text-secondary">9-Month Diploma</p>
+</td>
+<td class="px-8 py-5 text-body-md text-secondary">Sep 01, 2023</td>
+<td class="px-8 py-5 text-body-md text-secondary">May 15, 2024</td>
+<td class="px-8 py-5">
+<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-[11px] font-bold">IN PROGRESS</span>
+</td>
+<td class="px-8 py-5">
+<button class="p-2 text-secondary hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-all">
+<td class="px-8 py-5">
+<p class="font-bold text-on-surface">Digital Egypt Pioneers</p>
+<p class="text-xs text-secondary">Specialized Track</p>
+</td>
+<td class="px-8 py-5 text-body-md text-secondary">Nov 20, 2023</td>
+<td class="px-8 py-5 text-body-md text-secondary">Feb 15, 2024</td>
+<td class="px-8 py-5">
+<span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-[11px] font-bold">STARTING SOON</span>
+</td>
+<td class="px-8 py-5">
+<button class="p-2 text-secondary hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Sidebar Column (3 cols) -->
+<div class="col-span-12 lg:col-span-3 space-y-8">
+<!-- Notification Panel -->
+<div class="bg-pure-white rounded-xl card-shadow overflow-hidden">
+<div class="p-6 border-b border-surface-gray flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg text-on-surface">Notifications</h3>
+<span class="w-5 h-5 bg-iti-red text-white rounded-full flex items-center justify-center text-[10px] font-bold">4</span>
+</div>
+<div class="p-4 space-y-4">
+<div class="p-3 bg-surface-container-low rounded-lg border-l-4 border-iti-red relative group cursor-pointer hover:bg-surface-container-high transition-all">
+<p class="font-bold text-body-md text-on-surface mb-1">Grade Approval Needed</p>
+<p class="text-xs text-secondary">Web Track Cohort A final results are pending your signature.</p>
+<span class="text-[10px] text-iti-red mt-2 block">2 hours ago</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg border-l-4 border-secondary relative group cursor-pointer hover:bg-surface-container-high transition-all">
+<p class="font-bold text-body-md text-on-surface mb-1">System Update</p>
+<p class="text-xs text-secondary">Portal maintenance scheduled for Friday 2:00 AM.</p>
+<span class="text-[10px] text-secondary mt-2 block">5 hours ago</span>
+</div>
+<div class="p-3 bg-white rounded-lg border border-surface-gray group cursor-pointer hover:bg-surface-container-low transition-all">
+<p class="font-bold text-body-md text-on-surface mb-1">New Intake Request</p>
+<p class="text-xs text-secondary">HQ requested feasibility study for AI Track in Alexandria.</p>
+<span class="text-[10px] text-secondary mt-2 block">Yesterday</span>
+</div>
+</div>
+<button class="w-full py-4 text-center text-label-md font-bold text-secondary hover:text-primary transition-all bg-surface-bright">
+                            View All Notifications
+                        </button>
+</div>
+<!-- Activity Timeline -->
+<div class="bg-pure-white rounded-xl card-shadow p-6">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-8">Activity Timeline</h3>
+<div class="relative space-y-8 before:absolute before:left-[11px] before:top-2 before:bottom-0 before:w-0.5 before:bg-surface-gray">
+<div class="relative pl-10">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-iti-red flex items-center justify-center z-10 border-4 border-pure-white">
+<span class="material-symbols-outlined text-[12px] text-white">person_add</span>
+</div>
+<p class="text-label-sm font-bold text-on-surface">New Instructor Onboarded</p>
+<p class="text-xs text-secondary">Eng. Sarah Ahmed joined Web Track.</p>
+<span class="text-[10px] text-secondary">10:45 AM</span>
+</div>
+<div class="relative pl-10">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-deep-navy flex items-center justify-center z-10 border-4 border-pure-white">
+<span class="material-symbols-outlined text-[12px] text-white">description</span>
+</div>
+<p class="text-label-sm font-bold text-on-surface">Monthly Report Generated</p>
+<p class="text-xs text-secondary">Branch performance report for September.</p>
+<span class="text-[10px] text-secondary">09:12 AM</span>
+</div>
+<div class="relative pl-10">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-secondary flex items-center justify-center z-10 border-4 border-pure-white">
+<span class="material-symbols-outlined text-[12px] text-white">event_available</span>
+</div>
+<p class="text-label-sm font-bold text-on-surface">Schedules Finalized</p>
+<p class="text-xs text-secondary">Intake 44 Phase 2 schedules published.</p>
+<span class="text-[10px] text-secondary">Yesterday</span>
+</div>
+<div class="relative pl-10 opacity-50">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-gray flex items-center justify-center z-10 border-4 border-pure-white">
+<span class="material-symbols-outlined text-[12px] text-on-surface">school</span>
+</div>
+<p class="text-label-sm font-bold text-on-surface">Graduation Ceremony</p>
+<p class="text-xs text-secondary">Intake 43 Closing Event.</p>
+<span class="text-[10px] text-secondary">Oct 12, 2023</span>
+</div>
+</div>
+</div>
+<!-- Quick Actions Card -->
+<div class="bg-gradient-to-br from-iti-red to-dark-crimson rounded-xl card-shadow p-6 text-white">
+<h4 class="font-title-lg text-title-lg mb-4">Branch Support</h4>
+<p class="text-white/80 text-body-md mb-6">Need assistance with the management portal? Our tech team is online.</p>
+<button class="w-full py-3 bg-white text-iti-red font-bold rounded-lg hover:bg-surface-gray transition-all">
+                            Open Support Ticket
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer / Signature -->
+<footer class="p-gutter text-center">
+<p class="text-label-sm text-secondary">© 2024 Information Technology Institute (ITI). Internal Management Portal v2.4.0</p>
+</footer>
+</main>
+<!-- FAB for Task Focused Screens (Only on Primary Dashboard) -->
+<button class="fixed bottom-10 right-10 w-16 h-16 bg-iti-red text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all z-50 group">
+<span class="material-symbols-outlined text-3xl">add</span>
+<span class="absolute right-20 bg-deep-navy text-white px-4 py-2 rounded-lg text-label-md opacity-0 group-hover:opacity-100 transition-all pointer-events-none whitespace-nowrap">Create New Batch</span>
+</button>
+<script>
+        // Micro-interactions and effects
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Dashboard Initialized: ITI Branch Portal');
+            
+            // Example of a small interactive hover effect on stats cards
+            const statsCards = document.querySelectorAll('.card-shadow');
+            statsCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    // Animation logic could go here
+                });
+            });
+        });
+    </script>
+</body></html>

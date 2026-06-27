@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ITI Portal - Ahmed Salem Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "dark-crimson": "#901B20",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#e9e8e7",
+                    "tertiary": "#901b20",
+                    "surface-bright": "#fbf9f9",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed": "#021e2b",
+                    "primary-container": "#b03633",
+                    "outline": "#8c716e",
+                    "secondary-fixed-dim": "#b0cadc",
+                    "on-tertiary-fixed": "#410005",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#dfbfbc",
+                    "on-tertiary-fixed-variant": "#8b171d",
+                    "surface": "#fbf9f9",
+                    "primary": "#8f1d1e",
+                    "tertiary-container": "#b13435",
+                    "inverse-surface": "#303031",
+                    "on-primary-fixed": "#410003",
+                    "error-container": "#ffdad6",
+                    "surface-gray": "#EDEDED",
+                    "surface-container-low": "#f5f3f3",
+                    "primary-fixed": "#ffdad6",
+                    "background": "#fbf9f9",
+                    "surface-container-highest": "#e3e2e2",
+                    "secondary": "#496271",
+                    "surface-tint": "#ab3330",
+                    "pure-white": "#FFFFFF",
+                    "inverse-primary": "#ffb3ad",
+                    "tertiary-fixed-dim": "#ffb3ae",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#ffd4d0",
+                    "inverse-on-surface": "#f2f0f0",
+                    "on-surface": "#1b1c1c",
+                    "surface-variant": "#e3e2e2",
+                    "on-background": "#1b1c1c",
+                    "primary-fixed-dim": "#ffb3ad",
+                    "on-error": "#ffffff",
+                    "surface-container": "#efeded",
+                    "on-secondary-container": "#4d6675",
+                    "secondary-container": "#c9e3f5",
+                    "on-tertiary-container": "#ffd3d0",
+                    "on-primary-fixed-variant": "#8a1a1b",
+                    "on-surface-variant": "#58413f",
+                    "iti-red": "#B03633",
+                    "deep-navy": "#203947",
+                    "tertiary-fixed": "#ffdad7",
+                    "on-secondary-fixed-variant": "#314a58",
+                    "surface-dim": "#dbdad9",
+                    "secondary-fixed": "#cce6f8",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "sidebar-width": "280px",
+                    "margin-desktop": "32px"
+            },
+            "fontFamily": {
+                    "title-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Montserrat"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Montserrat"],
+                    "label-sm": ["Inter"],
+                    "headline-md": ["Montserrat"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .profile-card-shadow {
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        .sidebar-gradient {
+            background: linear-gradient(180deg, #203947 0%, #152630 100%);
+        }
+        .tab-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-surface">
+<!-- SIDE BAR NAVIGATION -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-deep-navy shadow-2xl flex flex-col py-base z-50">
+<div class="px-gutter mb-10">
+<h1 class="font-headline-md text-headline-md font-bold text-pure-white">ITI Portal</h1>
+<p class="text-label-md font-label-md text-surface-variant/70">Branch Management</p>
+</div>
+<nav class="flex-1 space-y-2 px-4">
+<div class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-md text-label-md">Programs</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-md text-label-md">Batches</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-label-md text-label-md">Staff</span>
+</div>
+<!-- Active Tab: Students (closest semantic match for profile/user focus) -->
+<div class="flex items-center gap-4 px-4 py-3 rounded-lg border-l-4 border-primary bg-primary-container/20 text-pure-white font-bold cursor-pointer active:scale-95">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Students</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 rounded-lg text-surface-variant/70 hover:text-pure-white hover:bg-white/5 transition-colors duration-200 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</div>
+</nav>
+<div class="mt-auto px-4 space-y-2 pt-base border-t border-white/10">
+<div class="flex items-center gap-4 px-4 py-3 text-surface-variant/70 hover:text-pure-white transition-colors cursor-pointer">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Help Center</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 text-surface-variant/70 hover:text-iti-red transition-colors cursor-pointer">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</div>
+</div>
+</aside>
+<!-- TOP NAVIGATION BAR -->
+<header class="fixed top-0 right-0 w-[calc(100%-280px)] h-16 glass-nav border-b border-surface-gray/30 flex justify-between items-center px-gutter z-40">
+<div class="flex items-center gap-gutter">
+<h2 class="font-headline-md text-headline-md font-extrabold text-primary">ITI Branch Portal</h2>
+<div class="relative w-64">
+<input class="w-full bg-surface-container-low border-none rounded-lg px-4 py-2 text-body-md focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search resources..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-2 text-secondary/50">search</span>
+</div>
+</div>
+<nav class="flex items-center gap-8">
+<a class="text-secondary hover:text-primary transition-all font-body-md text-body-md" href="#">Schedules</a>
+<a class="text-secondary hover:text-primary transition-all font-body-md text-body-md" href="#">Attendance</a>
+<a class="text-secondary hover:text-primary transition-all font-body-md text-body-md" href="#">Grades</a>
+<div class="flex items-center gap-4 border-l border-surface-gray pl-8">
+<button class="relative p-2 hover:bg-surface-container-low rounded-lg transition-all">
+<span class="material-symbols-outlined text-secondary">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-iti-red rounded-full"></span>
+</button>
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-all">
+<span class="material-symbols-outlined text-secondary">settings</span>
+</button>
+<div class="flex items-center gap-3 ml-4 bg-surface-container-low px-3 py-1.5 rounded-full cursor-pointer hover:bg-surface-container-high transition-all">
+<img class="w-8 h-8 rounded-full border border-primary/20 object-cover" data-alt="A professional portrait of a senior academic manager in a modern office, wearing a sharp tailored suit. The lighting is bright and airy with soft window light, reflecting a prestigious institutional environment. Minimalist and corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxklav_PtDJSG6zgmREgCYXTJjU4_V40SxXPtDgxX8JXhlEVZtUBwlUCDgW45KKl5rtc8U4QWzI0wMrdeP2wVSbf2iHvWE7YvykBlY_SHULeGrMW2sIgyfMXL5Pgg5dhgI4g4-bFeNhz4BiO_TAKQufVJLfHoTPIwQupmfcPKsn7a0HeYIei3YCEdsV83E6d0K1hG7dkbnPuoRAtgRDkS9wtL03x8U-jeLDDRLGHtYyaIRc8ELwZNcvgcLfB-EihnmHafy_fIswnTd"/>
+<span class="font-label-md text-label-md text-deep-navy font-bold">Ahmed Salem</span>
+</div>
+</div>
+</nav>
+</header>
+<!-- MAIN CONTENT AREA -->
+<main class="ml-[280px] pt-24 px-margin-desktop pb-margin-desktop min-h-screen">
+<div class="max-w-7xl mx-auto">
+<!-- Profile Header Card -->
+<div class="bg-pure-white rounded-xl profile-card-shadow overflow-hidden mb-gutter border border-surface-gray/30">
+<div class="h-32 bg-deep-navy relative">
+<div class="absolute inset-0 opacity-20">
+
+</div>
+</div>
+<div class="px-gutter pb-gutter relative">
+<div class="flex items-end -mt-16 gap-gutter">
+<div class="relative">
+<img class="w-32 h-32 rounded-xl border-4 border-pure-white object-cover shadow-lg" data-alt="A high-quality, professional headshot of Ahmed Salem, a middle-aged man with a confident expression and a trimmed beard, representing a branch manager. He is wearing a formal dark suit against a soft-focus office background that glows with warm, professional lighting. Crisp detail, soft bokeh." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDry0M6YIY1XIdsFQmD1fsDKbwAdLu5p4dpi4bMrlxy8kxQmGHCa7wpD9xSaHPodxSiAPneHuBbfe_ivML_XCqBdI3ieEMRzwEBlc0zYG9pt9xJkHSW-6OsUozLcliG4jHljdcIQ_Y3Xz9lz1VD-BWSjK1ZlE36ISCGP4WEMOzvDTEhtved5xNArLlzHJGXewKfSdOg0VXwNfehhp7sXhGTH2SSnxJCUiJn09K-u5ptdDy43SxEj6HDSKAupnFg3zRQFLUc-5snjjTu"/>
+<button class="absolute bottom-1 right-1 bg-iti-red text-pure-white p-1.5 rounded-lg shadow-md hover:bg-dark-crimson transition-colors">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<div class="flex-1 pb-2">
+<div class="flex justify-between items-end">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-deep-navy">Ahmed Salem</h1>
+<p class="text-primary font-bold flex items-center gap-2">
+                                        Training Manager 
+                                        <span class="w-1 h-1 bg-secondary/30 rounded-full"></span>
+<span class="text-secondary font-medium">Cairo East Branch</span>
+</p>
+</div>
+<button class="bg-iti-red text-pure-white px-6 py-2.5 rounded-lg font-title-lg text-label-md hover:bg-dark-crimson transition-all shadow-md active:scale-95">
+                                    Update Profile
+                                </button>
+</div>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-gutter pt-gutter border-t border-surface-gray">
+<div class="flex items-center gap-3 text-secondary">
+<span class="material-symbols-outlined">mail</span>
+<span class="text-body-md">ahmed.salem@iti.gov.eg</span>
+</div>
+<div class="flex items-center gap-3 text-secondary">
+<span class="material-symbols-outlined">call</span>
+<span class="text-body-md">+20 100 234 5678</span>
+</div>
+<div class="flex items-center gap-3 text-secondary">
+<span class="material-symbols-outlined">location_on</span>
+<span class="text-body-md">Smart Village, Giza</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Dashboard Bento Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Section: Content Tabs -->
+<div class="col-span-12 lg:col-span-8">
+<div class="bg-pure-white rounded-xl profile-card-shadow border border-surface-gray/30 flex flex-col h-full">
+<div class="flex border-b border-surface-gray overflow-x-auto hide-scrollbar">
+<button class="px-8 py-4 font-title-lg text-body-md text-primary border-b-2 border-primary tab-transition" id="tab-personal" onclick="switchTab('personal')">Personal Information</button>
+<button class="px-8 py-4 font-title-lg text-body-md text-secondary hover:text-primary transition-all tab-transition" id="tab-security" onclick="switchTab('security')">Security &amp; Credentials</button>
+<button class="px-8 py-4 font-title-lg text-body-md text-secondary hover:text-primary transition-all tab-transition" id="tab-activity" onclick="switchTab('activity')">Professional Activity</button>
+</div>
+<div class="p-gutter flex-1" id="tab-content">
+<!-- Default: Personal Info -->
+<div class="space-y-gutter animate-fadeIn">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="space-y-2">
+<label class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Full Legal Name</label>
+<div class="p-3 bg-surface-container-low rounded-lg text-deep-navy font-medium">Ahmed Mohamed Salem</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Employee ID</label>
+<div class="p-3 bg-surface-container-low rounded-lg text-deep-navy font-medium">ITI-MGR-2024-089</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Department</label>
+<div class="p-3 bg-surface-container-low rounded-lg text-deep-navy font-medium">Software Engineering Training</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Direct Report</label>
+<div class="p-3 bg-surface-container-low rounded-lg text-deep-navy font-medium">Dr. Heba Saleh (Executive Director)</div>
+</div>
+</div>
+<div class="space-y-4 mt-gutter">
+<h3 class="font-title-lg text-title-lg text-deep-navy">Biography</h3>
+<p class="text-secondary leading-relaxed">
+                                        Dedicated educational leader with over 12 years of experience in technical training and institutional management. Ahmed has pioneered several digital transformation initiatives within the ITI branches, focusing on streamlining student intake and industry-aligned curriculum development. Known for a collaborative management style that fosters innovation among teaching staff.
+                                    </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Section: Quick Stats Sidebar -->
+<div class="col-span-12 lg:col-span-4 space-y-gutter">
+<!-- Quick Stats Card -->
+<div class="bg-pure-white p-gutter rounded-xl profile-card-shadow border border-surface-gray/30">
+<h3 class="font-title-lg text-title-lg text-deep-navy mb-gutter flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                            Quick Stats
+                        </h3>
+<div class="space-y-6">
+<div class="group cursor-pointer">
+<div class="flex justify-between items-end mb-2">
+<span class="text-secondary font-medium">Years of Service</span>
+<span class="text-2xl font-bold text-primary">12y</span>
+</div>
+<div class="w-full h-2 bg-surface-gray rounded-full overflow-hidden">
+<div class="h-full bg-iti-red transition-all duration-1000" style="width: 80%;"></div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="flex justify-between items-end mb-2">
+<span class="text-secondary font-medium">Branches Managed</span>
+<span class="text-2xl font-bold text-primary">3</span>
+</div>
+<div class="w-full h-2 bg-surface-gray rounded-full overflow-hidden">
+<div class="h-full bg-iti-red transition-all duration-1000" style="width: 45%;"></div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="flex justify-between items-end mb-2">
+<span class="text-secondary font-medium">Teams Supervised</span>
+<span class="text-2xl font-bold text-primary">14</span>
+</div>
+<div class="w-full h-2 bg-surface-gray rounded-full overflow-hidden">
+<div class="h-full bg-iti-red transition-all duration-1000" style="width: 65%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Upcoming Schedule / Recent Action Card -->
+<div class="bg-deep-navy p-gutter rounded-xl shadow-xl text-pure-white relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-iti-red/20 rounded-full blur-3xl"></div>
+<h3 class="font-title-lg text-title-lg mb-4 relative z-10">Next Scheduled Audit</h3>
+<div class="flex items-center gap-4 mb-6 relative z-10">
+<div class="bg-white/10 p-3 rounded-lg backdrop-blur-sm">
+<span class="material-symbols-outlined text-3xl">event</span>
+</div>
+<div>
+<p class="text-surface-variant font-medium">October 24, 2024</p>
+<p class="text-sm opacity-70">Main Campus - Hall A</p>
+</div>
+</div>
+<button class="w-full py-3 bg-iti-red rounded-lg font-bold hover:bg-dark-crimson transition-colors relative z-10">
+                            View Calendar
+                        </button>
+</div>
+<!-- Badge/Cert Small Card -->
+<div class="bg-pure-white p-6 rounded-xl profile-card-shadow border border-surface-gray/30 flex items-center gap-4">
+<div class="w-12 h-12 flex-shrink-0 bg-secondary-container text-primary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div>
+<h4 class="font-bold text-deep-navy">Platinum Evaluator</h4>
+<p class="text-xs text-secondary">Certified Quality Assurance Officer</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function switchTab(tab) {
+            const content = document.getElementById('tab-content');
+            const tabs = ['personal', 'security', 'activity'];
+            
+            // Update Active Tab UI
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if(t === tab) {
+                    btn.classList.add('text-primary', 'border-b-2', 'border-primary');
+                    btn.classList.remove('text-secondary');
+                } else {
+                    btn.classList.remove('text-primary', 'border-b-2', 'border-primary');
+                    btn.classList.add('text-secondary');
+                }
+            });
+
+            // Update Content (Simulated)
+            let html = '';
+            if (tab === 'personal') {
+                html = `
+                    <div class="space-y-gutter animate-fadeIn">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+                            <div class="space-y-2"><label class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Full Legal Name</label><div class="p-3 bg-surface-container-low rounded-lg text-deep-navy font-medium">Ahmed Mohamed Salem</div></div>
+                            <div class="space-y-2"><label class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Employee ID</label><div class="p-3 bg-surface-container-low rounded-lg text-deep-navy font-medium">ITI-MGR-2024-089</div></div>
+                            <div class="space-y-2"><label class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Department</label><div class="p-3 bg-surface-container-low rounded-lg text-deep-navy font-medium">Software Engineering Training</div></div>
+                            <div class="space-y-2"><label class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Direct Report</label><div class="p-3 bg-surface-container-low rounded-lg text-deep-navy font-medium">Dr. Heba Saleh (Executive Director)</div></div>
+                        </div>
+                        <div class="space-y-4 mt-gutter">
+                            <h3 class="font-title-lg text-title-lg text-deep-navy">Biography</h3>
+                            <p class="text-secondary leading-relaxed">Dedicated educational leader with over 12 years of experience in technical training and institutional management. Ahmed has pioneered several digital transformation initiatives within the ITI branches.</p>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'security') {
+                html = `
+                    <div class="space-y-gutter animate-fadeIn">
+                        <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
+                            <div class="flex items-center gap-4">
+                                <span class="material-symbols-outlined text-primary">lock</span>
+                                <div><p class="font-bold">Password Last Changed</p><p class="text-sm text-secondary">3 weeks ago</p></div>
+                            </div>
+                            <button class="text-primary font-bold text-sm hover:underline">Change</button>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
+                            <div class="flex items-center gap-4">
+                                <span class="material-symbols-outlined text-primary">security</span>
+                                <div><p class="font-bold">Two-Factor Authentication</p><p class="text-sm text-secondary">Enabled (Mobile App)</p></div>
+                            </div>
+                            <button class="text-primary font-bold text-sm hover:underline">Manage</button>
+                        </div>
+                        <div class="p-4 border border-surface-gray rounded-lg">
+                            <h4 class="font-bold mb-2">Connected Devices</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3"><span class="material-symbols-outlined text-secondary">laptop</span><span class="text-sm">MacBook Pro M2 - Cairo, EG (Current)</span></div>
+                                <div class="flex items-center gap-3"><span class="material-symbols-outlined text-secondary">smartphone</span><span class="text-sm">iPhone 15 - Cairo, EG</span></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'activity') {
+                html = `
+                    <div class="space-y-6 animate-fadeIn">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-1 bg-primary rounded-full"></div>
+                            <div>
+                                <p class="text-sm text-secondary">Oct 20, 2024</p>
+                                <p class="font-medium">Approved Branch Expenditure for Batch 402</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-1 bg-secondary/30 rounded-full"></div>
+                            <div>
+                                <p class="text-sm text-secondary">Oct 18, 2024</p>
+                                <p class="font-medium">Updated Staff Evaluation Metrics for Q4</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-1 bg-secondary/30 rounded-full"></div>
+                            <div>
+                                <p class="text-sm text-secondary">Oct 15, 2024</p>
+                                <p class="font-medium">Onboarded 5 new Technical Instructors</p>
+                            </div>
+                        </div>
+                        <button class="text-primary font-bold hover:text-dark-crimson transition-colors mt-4">View All Logs →</button>
+                    </div>
+                `;
+            }
+            
+            content.innerHTML = html;
+        }
+
+        // Simple Fade-in animation class
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fadeIn {
+                animation: fadeIn 0.4s ease-out forwards;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body></html>
