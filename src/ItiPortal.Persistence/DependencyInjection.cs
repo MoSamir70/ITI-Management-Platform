@@ -37,6 +37,12 @@ public static class DependencyInjection
 
         services.AddScoped<IRefreshTokenStore, RefreshTokenStore>();
         services.AddScoped<IClaimsLookup, ClaimsLookup>();
+        services.AddScoped<ItiPortal.Application.Users.IUserQueryRepository, ItiPortal.Persistence.Users.UserQueryRepository>();
+        services.AddScoped<ItiPortal.Application.Org.IBranchService, ItiPortal.Persistence.Org.BranchService>();
+        services.AddScoped<ItiPortal.Application.Org.IIntakeService, ItiPortal.Persistence.Org.IntakeService>();
+        services.AddScoped<ItiPortal.Application.Academic.ITrackService, ItiPortal.Persistence.Academic.TrackService>();
+        services.AddScoped<ItiPortal.Application.Academic.ICourseService, ItiPortal.Persistence.Academic.CourseService>();
+        services.AddScoped<ItiPortal.Application.Groups.IGroupService, ItiPortal.Persistence.Groups.GroupService>();
 
         return services;
     }

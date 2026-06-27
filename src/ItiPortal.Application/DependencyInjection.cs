@@ -1,4 +1,5 @@
 using ItiPortal.Application.Auth;
+using ItiPortal.Application.Users;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,7 @@ public static class DependencyInjection
     {
         services.Configure<JwtOptions>(config.GetSection("Jwt"));
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IUserService, UserService>();
         return services;
     }
 }
