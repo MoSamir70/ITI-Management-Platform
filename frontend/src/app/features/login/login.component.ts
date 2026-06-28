@@ -76,14 +76,16 @@ import { AuthService } from '../../core/services/auth.service';
       <form [formGroup]="form" (ngSubmit)="submit()">
         <div class="form-field">
           <label for="email">Email</label>
-          <input id="email" type="email" formControlName="email" placeholder="you@iti.gov.eg" autocomplete="email" />
+          <input id="email" type="email" formControlName="email"
+                 placeholder="you@iti.gov.eg" autocomplete="email" />
           @if (form.get('email')?.invalid && form.get('email')?.touched) {
             <span class="error-msg">Valid email required</span>
           }
         </div>
         <div class="form-field">
           <label for="password">Password</label>
-          <input id="password" type="password" formControlName="password" autocomplete="current-password" />
+          <input id="password" type="password" formControlName="password"
+                 autocomplete="current-password" />
           @if (form.get('password')?.invalid && form.get('password')?.touched) {
             <span class="error-msg">Password required</span>
           }
@@ -116,10 +118,24 @@ export class LoginComponent {
     this.error.set(null);
 
     this.auth.login(this.form.getRawValue()).subscribe({
-      next: () => this.router.navigate(['/']),
+      next: async () => {
+        const ok = await this.router.navigate(['/dashboard']);
+        if (!ok) {
+          // Guard blocked navigation (shouldn't happen after valid login)
+          this.loading.set(false);
+          this.error.set('Login succeeded but navigation failed. Please refresh.');
+        }
+        // On success loading stays true briefly while navigating away — component is destroyed
+      },
       error: err => {
         this.loading.set(false);
-        this.error.set(err.status === 401 ? 'Invalid email or password.' : 'Something went wrong. Please try again.');
+        if (err.status === 401) {
+          this.error.set('Invalid email or password.');
+        } else if (err.status === 0) {
+          this.error.set('Cannot reach the server. Make sure the API is running on port 5251.');
+        } else {
+          this.error.set(`Error ${err.status}: ${err.error?.title ?? 'Something went wrong.'}`);
+        }
       }
     });
   }

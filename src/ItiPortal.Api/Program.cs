@@ -56,7 +56,9 @@ if (app.Environment.IsDevelopment())
     await DbSeeder.SeedAsync(db, userManager, roleManager);
 }
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+    app.UseHttpsRedirection();
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
