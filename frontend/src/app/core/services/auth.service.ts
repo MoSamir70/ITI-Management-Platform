@@ -5,7 +5,6 @@ import { tap, catchError, EMPTY } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthState, LoginRequest, LoginResponse, RefreshResponse, UserRole } from '../models/auth.models';
 
-const TOKEN_KEY = 'iti_access_token';
 const STATE_KEY = 'iti_auth_state';
 
 @Injectable({ providedIn: 'root' })
@@ -14,7 +13,9 @@ export class AuthService {
 
   readonly isAuthenticated = computed(() => {
     const s = this._state();
-    return s !== null && new Date(s.expiresAt) > new Date();
+    if (!s) return false;
+    const exp = new Date(s.expiresAt);
+    return !isNaN(exp.getTime()) && exp > new Date();
   });
 
   readonly currentUser = computed(() => this._state());
@@ -24,24 +25,13 @@ export class AuthService {
 
   login(req: LoginRequest) {
     return this.http.post<LoginResponse>(`${environment.apiBase}/auth/login`, req).pipe(
-      tap(res => {
-        const state: AuthState = {
-          accessToken: res.accessToken,
-          userId: res.userId,
-          fullName: res.fullName,
-          role: res.role as UserRole,
-          expiresAt: new Date(res.expiresAt)
-        };
-        this._state.set(state);
-        sessionStorage.setItem(STATE_KEY, JSON.stringify(state));
-      })
+      tap(res => this.applyLogin(res))
     );
   }
 
   logout() {
     this.http.post(`${environment.apiBase}/auth/logout`, {}).pipe(catchError(() => EMPTY)).subscribe();
-    this._state.set(null);
-    sessionStorage.removeItem(STATE_KEY);
+    this.clearState();
     this.router.navigate(['/login']);
   }
 
@@ -50,9 +40,12 @@ export class AuthService {
       tap(res => {
         const current = this._state();
         if (!current) return;
-        const updated: AuthState = { ...current, accessToken: res.accessToken, expiresAt: new Date(res.expiresAt) };
-        this._state.set(updated);
-        sessionStorage.setItem(STATE_KEY, JSON.stringify(updated));
+        const updated: AuthState = {
+          ...current,
+          accessToken: res.accessToken,
+          expiresAt: new Date(Date.now() + res.expiresInSeconds * 1000)
+        };
+        this.saveState(updated);
       })
     );
   }
@@ -66,12 +59,35 @@ export class AuthService {
     return r !== null && roles.includes(r);
   }
 
+  private applyLogin(res: LoginResponse) {
+    const state: AuthState = {
+      accessToken: res.accessToken,
+      userId: res.userId,
+      fullName: res.fullName,
+      role: res.role as UserRole,
+      expiresAt: new Date(Date.now() + res.expiresInSeconds * 1000),
+      mustChangePassword: res.mustChangePassword
+    };
+    this.saveState(state);
+  }
+
+  private saveState(state: AuthState) {
+    this._state.set(state);
+    sessionStorage.setItem(STATE_KEY, JSON.stringify(state));
+  }
+
+  private clearState() {
+    this._state.set(null);
+    sessionStorage.removeItem(STATE_KEY);
+  }
+
   private loadState(): AuthState | null {
     try {
       const raw = sessionStorage.getItem(STATE_KEY);
       if (!raw) return null;
       const s = JSON.parse(raw) as AuthState;
       s.expiresAt = new Date(s.expiresAt);
+      if (isNaN(s.expiresAt.getTime())) return null;
       return s.expiresAt > new Date() ? s : null;
     } catch {
       return null;

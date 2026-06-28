@@ -5,15 +5,16 @@ export interface LoginRequest {
 
 export interface LoginResponse {
   accessToken: string;
-  expiresAt: string;
+  expiresInSeconds: number;
+  role: string;
   userId: string;
   fullName: string;
-  role: string;
+  mustChangePassword: boolean;
 }
 
 export interface RefreshResponse {
   accessToken: string;
-  expiresAt: string;
+  expiresInSeconds: number;
 }
 
 export type UserRole =
@@ -29,4 +30,5 @@ export interface AuthState {
   fullName: string;
   role: UserRole;
   expiresAt: Date;
+  mustChangePassword: boolean;
 }
