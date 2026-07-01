@@ -39,4 +39,12 @@ export class UserService {
   deactivate(id: string): Observable<void> {
     return this.http.patch<void>(`${this.base}/${id}/deactivate`, {});
   }
+
+  getMe(): Observable<UserDetail> {
+    return this.http.get<UserDetail>(`${this.base}/me`);
+  }
+
+  updateMe(req: { phone?: string | null; photoUrl?: string | null }): Observable<void> {
+    return this.http.put<void>(`${this.base}/me`, req);
+  }
 }
