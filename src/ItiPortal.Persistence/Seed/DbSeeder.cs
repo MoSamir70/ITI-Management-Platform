@@ -41,6 +41,44 @@ public static class DbSeeder
         await SeedExamAsync(db, webCourse, admin, ct);
         await SeedKpiAsync(db, students, track, supervisor, ct);
         await SeedNotificationsAsync(db, students, admin, supervisor, ct);
+        await SeedAbsenceRequestsAsync(db, students, supervisor, ct);
+    }
+
+    /* ─── Absence Requests ─────────────────────────────── */
+    private static async Task SeedAbsenceRequestsAsync(
+        AppDbContext db, List<ApplicationUser> students, ApplicationUser supervisor, CancellationToken ct)
+    {
+        var requests = new List<AbsenceRequest>
+        {
+            new AbsenceRequest
+            {
+                StudentId = students[1].Id,
+                RequestedDatesJson = System.Text.Json.JsonSerializer.Serialize(new[] { Now.AddDays(-10) }),
+                Reason = "Medical appointment — doctor's note attached.",
+                Status = AbsenceRequestStatus.Approved,
+                ReviewedById = supervisor.Id, ReviewedAt = Now.AddDays(-9), ReviewNote = "Approved, note verified.",
+                SubmittedAt = Now.AddDays(-11), CreatedAt = Now.AddDays(-11), UpdatedAt = Now.AddDays(-9)
+            },
+            new AbsenceRequest
+            {
+                StudentId = students[5].Id,
+                RequestedDatesJson = System.Text.Json.JsonSerializer.Serialize(new[] { Now.AddDays(-4), Now.AddDays(-3) }),
+                Reason = "Family emergency out of town.",
+                Status = AbsenceRequestStatus.Pending,
+                SubmittedAt = Now.AddDays(-4), CreatedAt = Now.AddDays(-4), UpdatedAt = Now.AddDays(-4)
+            },
+            new AbsenceRequest
+            {
+                StudentId = students[7].Id,
+                RequestedDatesJson = System.Text.Json.JsonSerializer.Serialize(new[] { Now.AddDays(-2) }),
+                Reason = "Personal reasons.",
+                Status = AbsenceRequestStatus.Rejected,
+                ReviewedById = supervisor.Id, ReviewedAt = Now.AddDays(-1), ReviewNote = "No supporting documentation provided.",
+                SubmittedAt = Now.AddDays(-2), CreatedAt = Now.AddDays(-2), UpdatedAt = Now.AddDays(-1)
+            },
+        };
+        db.Set<AbsenceRequest>().AddRange(requests);
+        await db.SaveChangesAsync(ct);
     }
 
     /* ─── Roles ────────────────────────────────────────── */
