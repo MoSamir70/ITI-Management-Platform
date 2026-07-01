@@ -158,13 +158,13 @@ interface NavItem { label: string; icon: string; route: string; }
           <button class="icon-btn">
             <span class="material-symbols-outlined">notifications</span>
           </button>
-          <div class="user-chip">
+          <a class="user-chip" routerLink="/profile" style="text-decoration:none">
             <div class="user-avatar">{{ initials() }}</div>
             <div class="user-info">
               <span class="user-name">{{ fullName() }}</span>
               <span class="user-role">{{ role() }}</span>
             </div>
-          </div>
+          </a>
         </div>
       </header>
 
@@ -181,11 +181,13 @@ export class ShellComponent {
     { label: 'Dashboard',     icon: 'dashboard',       route: '/dashboard' },
     { label: 'Students',      icon: 'person',           route: '/students' },
     { label: 'Programs',      icon: 'school',           route: '/programs' },
+    { label: 'Courses',       icon: 'menu_book',        route: '/courses' },
     { label: 'Batches',       icon: 'groups',           route: '/groups' },
     { label: 'Grades',        icon: 'grade',            route: '/grades' },
     { label: 'Attendance',    icon: 'event_available',  route: '/attendance' },
     { label: 'Exams',         icon: 'quiz',             route: '/exams' },
     { label: 'KPI',           icon: 'analytics',        route: '/kpi' },
+    { label: 'Reports',       icon: 'summarize',        route: '/reports' },
     { label: 'Notifications', icon: 'notifications',    route: '/notifications' },
   ];
 
