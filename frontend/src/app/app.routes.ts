@@ -39,6 +39,30 @@ export const routes: Routes = [
         path: 'students',
         loadComponent: () => import('./features/students/students.component').then(m => m.StudentsComponent)
       },
+      {
+        path: 'programs',
+        loadComponent: () => import('./features/programs/programs.component').then(m => m.ProgramsComponent)
+      },
+      {
+        path: 'courses',
+        loadComponent: () => import('./features/courses/courses.component').then(m => m.CoursesComponent)
+      },
+      {
+        path: 'groups',
+        loadComponent: () => import('./features/groups/groups.component').then(m => m.GroupsComponent)
+      },
+      {
+        path: 'reports',
+        loadComponent: () => import('./features/reports/reports.component').then(m => m.ReportsComponent)
+      },
+      {
+        path: 'settings',
+        loadComponent: () => import('./features/settings/settings.component').then(m => m.SettingsComponent)
+      },
+      {
+        path: 'profile',
+        loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent)
+      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },

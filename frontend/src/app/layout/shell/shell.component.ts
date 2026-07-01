@@ -1,13 +1,14 @@
 import { Component, computed } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { ToastHostComponent } from '../../shared/ui/toast-host/toast-host.component';
 
 interface NavItem { label: string; icon: string; route: string; }
 
 @Component({
   selector: 'app-shell',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, ToastHostComponent],
   styles: [`
     :host { display: flex; height: 100vh; overflow: hidden; }
 
@@ -61,6 +62,7 @@ interface NavItem { label: string; icon: string; route: string; }
       display: flex; align-items: center; gap: 14px;
       padding: 11px 16px; border-radius: 10px;
       color: var(--iti-red); font-size: 14px; font-weight: 600; cursor: pointer; transition: all .18s;
+      text-decoration: none;
     }
     .nav-settings:hover { background: rgba(176,54,51,.1); }
     .nav-settings .material-symbols-outlined { font-size: 20px; }
@@ -133,10 +135,10 @@ interface NavItem { label: string; icon: string; route: string; }
       </nav>
 
       <div class="sidebar-bottom">
-        <div class="nav-settings">
+        <a class="nav-settings" routerLink="/settings">
           <span class="material-symbols-outlined">settings</span>
           System Settings
-        </div>
+        </a>
         <hr class="bottom-divider">
         <div class="nav-item" style="color:rgba(255,255,255,.55); border-left:none">
           <span class="material-symbols-outlined">help</span>
@@ -156,13 +158,13 @@ interface NavItem { label: string; icon: string; route: string; }
           <button class="icon-btn">
             <span class="material-symbols-outlined">notifications</span>
           </button>
-          <div class="user-chip">
+          <a class="user-chip" routerLink="/profile" style="text-decoration:none">
             <div class="user-avatar">{{ initials() }}</div>
             <div class="user-info">
               <span class="user-name">{{ fullName() }}</span>
               <span class="user-role">{{ role() }}</span>
             </div>
-          </div>
+          </a>
         </div>
       </header>
 
@@ -170,16 +172,22 @@ interface NavItem { label: string; icon: string; route: string; }
         <router-outlet />
       </div>
     </div>
+
+    <app-toast-host />
   `
 })
 export class ShellComponent {
   navItems: NavItem[] = [
     { label: 'Dashboard',     icon: 'dashboard',       route: '/dashboard' },
     { label: 'Students',      icon: 'person',           route: '/students' },
+    { label: 'Programs',      icon: 'school',           route: '/programs' },
+    { label: 'Courses',       icon: 'menu_book',        route: '/courses' },
+    { label: 'Batches',       icon: 'groups',           route: '/groups' },
     { label: 'Grades',        icon: 'grade',            route: '/grades' },
     { label: 'Attendance',    icon: 'event_available',  route: '/attendance' },
     { label: 'Exams',         icon: 'quiz',             route: '/exams' },
     { label: 'KPI',           icon: 'analytics',        route: '/kpi' },
+    { label: 'Reports',       icon: 'summarize',        route: '/reports' },
     { label: 'Notifications', icon: 'notifications',    route: '/notifications' },
   ];
 
